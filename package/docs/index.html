@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storielle Design System</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Geist:wght@300;400;500;600;700&display=swap">
+<style>
+
+/* ───────── 1. TOKENS ───────── */
+:root{
+  color-scheme:dark;
+  /* superfícies */
+  --st-bg:#050505; --st-bg-raised:#0a0a0a; --st-surface:#111111;
+  --st-border:#222222; --st-border-strong:#333333; --st-border-hover:#444444;
+  --st-glass:rgba(17,17,17,.6); --st-overlay:rgba(255,255,255,.05); --st-line:rgba(255,255,255,.1);
+  /* texto */
+  --st-text:#ffffff; --st-text-soft:#dddddd; --st-text-dim:#888888; --st-text-faint:#666666; --st-text-muted:#555555;
+  --st-accent:#ffffff;
+  /* marca (CTA laranja) */
+  --st-brand-300:#fcd34d; --st-brand-400:#fb923c; --st-brand-500:#f97316; --st-brand-glow:rgba(248,181,129,.55);
+  /* destaque (plano popular / foco) */
+  --st-violet:#9333ea; --st-violet-ui:hsl(266 92% 58%); --st-fuchsia:#d946ef;
+  /* apoio */
+  --st-sky:#38bdf8; --st-emerald:#10b981; --st-amber:#d97706; --st-cursor:#ffca28;
+  /* tipografia */
+  --st-font-display:"Plus Jakarta Sans",system-ui,sans-serif;
+  --st-font-ui:"Geist","Inter",system-ui,sans-serif;
+  --st-font-base:"Inter",system-ui,sans-serif;
+  /* raios */
+  --st-r-sm:4px; --st-r-md:6px; --st-r-lg:12px; --st-r-xl:16px; --st-r-2xl:24px; --st-r-3xl:28px; --st-r-full:9999px;
+  /* espaço (base 4px) */
+  --st-s-1:.25rem; --st-s-2:.5rem; --st-s-3:.75rem; --st-s-4:1rem; --st-s-6:1.5rem; --st-s-8:2rem; --st-s-12:3rem; --st-s-16:4rem; --st-s-24:6rem;
+  /* sombras */
+  --st-sh-card:0 20px 50px rgba(0,0,0,.8); --st-sh-card-hover:0 30px 60px rgba(0,0,0,.9);
+  --st-sh-violet:0 0 40px rgba(147,51,234,.14); --st-sh-white:0 0 20px rgba(255,255,255,.2); --st-sh-cta:0 0 22px var(--st-brand-glow);
+  /* movimento */
+  --st-ease-out:cubic-bezier(.16,1,.3,1); --st-ease-card:cubic-bezier(.25,1,.5,1); --st-ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --st-dur-fast:.2s; --st-dur:.3s; --st-dur-slow:.8s;
+}
+
+/* ───────── 2. BASE ───────── */
+.st-body{margin:0;background:var(--st-bg);color:var(--st-text);font-family:var(--st-font-base);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.st-body ::selection{background:#fff;color:#000}
+.st-grid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:4rem 4rem;-webkit-mask-image:radial-gradient(circle at center,#000,transparent 80%);mask-image:radial-gradient(circle at center,#000,transparent 80%)}
+.st-container{max-width:80rem;margin-inline:auto;padding-inline:1.5rem}
+.st-divider-line{border:0;border-top:1px solid var(--st-border);margin:0}
+
+/* ───────── 3. TIPOGRAFIA ───────── */
+.st-display{font:500 clamp(2.25rem,6vw,4.5rem)/1.05 var(--st-font-display);letter-spacing:-.025em;color:var(--st-text);margin:0}
+.st-h2{font:500 clamp(1.875rem,4vw,3rem)/1.1 var(--st-font-display);letter-spacing:-.025em;color:var(--st-text);margin:0}
+.st-h3{font:500 1.25rem/1.3 var(--st-font-display);letter-spacing:-.025em;color:var(--st-text);margin:0}
+.st-h4{font:500 1.125rem/1.4 var(--st-font-ui);letter-spacing:-.025em;color:var(--st-text);margin:0}
+.st-lead{font:400 1.25rem/1.6 var(--st-font-display);color:var(--st-text-dim);margin:0}
+.st-text{font:400 1rem/1.6 var(--st-font-ui);color:var(--st-text-dim);margin:0}
+.st-small{font:400 .875rem/1.5 var(--st-font-ui);color:var(--st-text-dim);margin:0}
+.st-caption{font:400 .75rem/1.5 var(--st-font-ui);color:var(--st-text-muted);margin:0}
+.st-eyebrow{display:block;font:600 .75rem/1 var(--st-font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--st-text-dim)}
+.st-number{font:500 clamp(1.5rem,3vw,1.875rem)/1 var(--st-font-display);letter-spacing:-.025em}
+.st-price{font:500 2.25rem/1 var(--st-font-display);letter-spacing:-.025em}
+.st-link{font:400 .875rem var(--st-font-ui);color:var(--st-text-muted);text-decoration:none;transition:color var(--st-dur-fast)}
+.st-link:hover{color:#fff}
+
+/* ───────── 4. BOTÕES ───────── */
+.st-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem 1.5rem;background:transparent;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.1);border-radius:var(--st-r-md);font:500 .875rem var(--st-font-ui);letter-spacing:-.01em;text-transform:capitalize;cursor:pointer;text-decoration:none;transition:transform var(--st-dur-fast) ease-in-out,letter-spacing var(--st-dur-fast) ease-in-out,background var(--st-dur-fast),color var(--st-dur-fast),border-color var(--st-dur-fast)}
+.st-btn:hover{background:#fff;color:#000;transform:scale(1.02);letter-spacing:.02em}
+.st-btn:active{transform:scale(.98)}
+.st-btn:focus-visible,.st-cta:focus-visible,.st-icon-btn:focus-visible{outline:2px solid var(--st-violet);outline-offset:3px}
+.st-btn--pill{border-radius:var(--st-r-full);padding:.75rem 1rem;text-transform:none;letter-spacing:0}
+.st-btn--outline{border-color:var(--st-border-strong);color:#fff}
+.st-btn--outline:hover{background:var(--st-surface);border-color:#555;color:#fff;transform:none;letter-spacing:0}
+.st-btn--white{background:#fff;color:#000;border-color:#fff;box-shadow:var(--st-sh-white)}
+.st-btn--white:hover{background:#e5e7eb;transform:none;letter-spacing:0}
+.st-btn--dark{background:var(--st-surface);border-color:var(--st-border-strong);color:#fff}
+.st-btn--dark:hover{background:var(--st-border);color:#fff;transform:none;letter-spacing:0}
+.st-btn--block{width:100%}
+/* CTA laranja — assinatura da marca */
+.st-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;height:2.25rem;padding:0 1.5rem;border:0;background:none;color:#fff;border-radius:var(--st-r-full);font:500 12px var(--st-font-ui);letter-spacing:-.01em;cursor:pointer;text-decoration:none;transition:filter var(--st-dur-fast),transform var(--st-dur-fast)}
+.st-cta::before{content:"";position:absolute;inset:0;z-index:-2;border-radius:inherit;background:linear-gradient(90deg,rgb(251 146 60/.2),rgb(252 211 77/.3),rgb(251 146 60/.2));box-shadow:var(--st-sh-cta),inset 0 0 0 1px rgb(252 211 77/.6)}
+.st-cta::after{content:"";position:absolute;inset:3px;z-index:-1;border-radius:inherit;background:linear-gradient(180deg,var(--st-brand-400),var(--st-brand-500),var(--st-brand-300));box-shadow:0 4px 12px rgba(0,0,0,.45),0 14px 18px -8px rgb(252 211 77/.45)}
+.st-cta:hover{filter:brightness(1.1)} .st-cta:active{transform:scale(.985)}
+.st-cta--lg{height:3rem;font-size:14px;width:100%}
+/* moldura animada (pontos + linhas) para envolver qualquer botão */
+.st-frame{position:relative;display:inline-flex;padding:.8rem 1rem;user-select:none}
+.st-frame::before{content:"";position:absolute;inset:-4px;pointer-events:none;opacity:0;transform:scale(.9);transition:opacity var(--st-dur),transform var(--st-dur) var(--st-ease-spring);background:linear-gradient(#fffa,#fffa) 0 0/8px 8px no-repeat,linear-gradient(#fffa,#fffa) 100% 0/8px 8px no-repeat,linear-gradient(#fffa,#fffa) 0 100%/8px 8px no-repeat,linear-gradient(#fffa,#fffa) 100% 100%/8px 8px no-repeat}
+.st-frame::after{content:"";position:absolute;inset:0;pointer-events:none;border:1px dashed #fffa;opacity:0;clip-path:inset(0 100% 100% 0);transition:clip-path .5s ease-in-out,opacity var(--st-dur)}
+.st-frame:hover::before,.st-frame:focus-within::before{opacity:1;transform:none}
+.st-frame:hover::after,.st-frame:focus-within::after{opacity:1;clip-path:inset(0)}
+.st-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border-radius:var(--st-r-full);border:1px solid rgba(255,255,255,.1);background:var(--st-overlay);color:#fff;backdrop-filter:blur(12px);cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.4);transition:background var(--st-dur-fast),color var(--st-dur-fast)}
+.st-icon-btn:hover{background:#fff;color:#000}
+
+/* ───────── 5. SUPERFÍCIES ───────── */
+.st-glass{background:var(--st-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--st-border);border-radius:var(--st-r-xl)}
+.st-glass--hover{transition:border-color var(--st-dur-fast)} .st-glass--hover:hover{border-color:var(--st-border-hover)}
+.st-card{background:var(--st-surface);border:1px solid var(--st-border);border-radius:var(--st-r-xl);padding:2rem}
+.st-ring-card{background:rgba(0,0,0,.4);border-radius:var(--st-r-xl);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);padding:2rem}
+.st-stat{display:flex;flex-direction:column;gap:.5rem;padding:1.5rem}
+.st-stat--light{background:#fff;color:#000;border-color:#fff}
+.st-stat--light .st-small{color:rgba(0,0,0,.8)} .st-stat--light .st-eyebrow{color:#000;opacity:.6}
+.st-window{border-radius:var(--st-r-xl);border:1px solid var(--st-border);background:var(--st-bg-raised);overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,.6)}
+.st-window__bar{display:flex;align-items:center;gap:.5rem;height:2.5rem;padding:0 1rem;background:var(--st-surface);border-bottom:1px solid var(--st-border)}
+.st-window__bar i{width:.75rem;height:.75rem;border-radius:50%;background:var(--st-border-strong)}
+.st-window__bar span{margin-left:1rem;font:500 .75rem var(--st-font-ui);color:var(--st-text-muted)}
+
+/* ───────── 6. BADGES ───────── */
+.st-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.375rem .75rem;border:1px solid var(--st-border);border-radius:var(--st-r-full);background:var(--st-surface);color:var(--st-text-dim);font:500 .75rem var(--st-font-ui);letter-spacing:.1em;text-transform:uppercase}
+.st-badge__dot{width:.375rem;height:.375rem;border-radius:50%;background:#fff;animation:st-pulse 2s cubic-bezier(.4,0,.6,1) infinite}
+.st-tag{display:inline-block;padding:.25rem .5rem;border-radius:var(--st-r-md);background:#e2e8f0;color:var(--st-amber);font:600 .65rem var(--st-font-ui);letter-spacing:.05em;text-transform:uppercase}
+.st-badge--popular{border:0;background:linear-gradient(90deg,#a855f7,#d946ef);color:#fff;font-size:10px;font-weight:600;padding:.25rem .75rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.4)}
+
+/* ───────── 7. FORMULÁRIOS ───────── */
+.st-field{display:grid;gap:.5rem} .st-label{font:500 .875rem var(--st-font-ui);color:#fff} .st-help{font:400 .75rem var(--st-font-ui);color:var(--st-text-faint);margin:0}
+.st-input{width:100%;box-sizing:border-box;padding:.75rem 1rem;border-radius:var(--st-r-2xl);border:1px solid rgba(255,255,255,.1);background:var(--st-overlay);color:#fff;font:400 .875rem var(--st-font-ui);outline:0;transition:all var(--st-dur-fast)}
+.st-input::placeholder{color:var(--st-text-faint)}
+.st-input:focus{border-color:rgb(192 132 252/.5);background:rgba(255,255,255,.07);box-shadow:0 0 0 2px rgb(168 85 247/.2)}
+.st-check{appearance:none;-webkit-appearance:none;flex:none;width:1.25rem;height:1.25rem;margin:0;border:1px solid var(--st-border);border-radius:var(--st-r-sm);background:rgba(255,255,255,.03);cursor:pointer;display:inline-grid;place-content:center;transition:all var(--st-dur-fast)}
+.st-check:checked{background:var(--st-accent);border-color:var(--st-accent)}
+.st-check:checked::after{content:"";width:.5rem;height:.5rem;background:#000;border-radius:1px}
+.st-check:focus-visible,.st-switch:focus-visible{outline:2px solid var(--st-violet);outline-offset:2px}
+.st-option{display:flex;align-items:center;gap:1rem;padding:1rem;border:1px solid var(--st-border);border-radius:var(--st-r-lg);cursor:pointer;font:500 .875rem var(--st-font-ui);color:var(--st-text-dim);transition:all var(--st-dur-fast)}
+.st-option:hover{border-color:var(--st-border-hover);background:var(--st-surface);color:#fff}
+.st-option:has(:checked){color:#fff}
+.st-switch{appearance:none;-webkit-appearance:none;position:relative;flex:none;width:2.5rem;height:1.25rem;margin:0;border-radius:var(--st-r-full);background:var(--st-border);cursor:pointer;transition:background var(--st-dur-fast)}
+.st-switch::after{content:"";position:absolute;top:.25rem;left:.25rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--st-text-muted);transition:transform var(--st-dur-fast) var(--st-ease-spring),background var(--st-dur-fast)}
+.st-switch:checked{background:#fff} .st-switch:checked::after{background:#000;transform:translateX(1.25rem)}
+.st-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;font:500 .875rem var(--st-font-ui);color:var(--st-text-dim)}
+.st-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.5rem;padding:.25rem;border:1px solid rgba(255,255,255,.1);border-radius:var(--st-r-full);background:var(--st-overlay)}
+.st-tabs button{padding:.625rem 1rem;border:0;border-radius:var(--st-r-full);background:transparent;color:var(--st-text-dim);font:500 .875rem var(--st-font-ui);letter-spacing:-.01em;cursor:pointer;transition:all var(--st-dur-fast)}
+.st-tabs button:hover{color:#fff} .st-tabs button[aria-selected=true]{background:#fff;color:#000}
+.st-provider{display:flex;align-items:center;gap:.75rem;width:100%;padding:.875rem 1rem;border-radius:var(--st-r-xl);border:1px solid rgba(255,255,255,.1);background:var(--st-overlay);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);color:#fff;text-align:left;cursor:pointer;font-family:var(--st-font-ui);transition:all var(--st-dur-fast)}
+.st-provider:hover{background:rgba(255,255,255,.1)} .st-provider:active{transform:scale(.985)}
+.st-provider__icon{display:grid;place-items:center;width:2.5rem;height:2.5rem;border-radius:var(--st-r-lg);border:1px solid rgba(255,255,255,.1);background:var(--st-overlay);font:500 1rem var(--st-font-display)}
+.st-provider b{display:block;font-weight:500;font-size:.875rem} .st-provider small{display:block;font-size:.75rem;color:var(--st-text-dim)}
+.st-or{display:flex;align-items:center;gap:.75rem;font:500 11px var(--st-font-ui);letter-spacing:.1em;text-transform:uppercase;color:#8a8a8a}
+.st-or::before,.st-or::after{content:"";flex:1;border-top:1px solid rgba(255,255,255,.1)}
+
+/* ───────── 8. NAVEGAÇÃO ───────── */
+.st-navlink{position:relative;font:500 .875rem var(--st-font-ui);color:#a1a1aa;text-decoration:none;transition:transform .18s var(--st-ease-spring),color .18s}
+.st-navlink::after{content:"";position:absolute;left:0;right:0;bottom:-.45rem;height:2px;border-radius:9999px;background:rgba(255,255,255,.9);transform:scaleX(0);transition:transform .22s var(--st-ease-spring)}
+.st-navlink:hover,.st-navlink.is-active{color:#fff;transform:translateY(-2px)} .st-navlink:hover::after,.st-navlink.is-active::after{transform:scaleX(1)}
+.st-brand{display:inline-flex;align-items:center;gap:.5rem;font:500 1.25rem var(--st-font-display);letter-spacing:-.025em;color:#fff}
+.st-dots{display:flex;gap:.625rem;align-items:center}
+.st-dots i{width:.375rem;height:.375rem;border-radius:50%;background:rgba(255,255,255,.3);transition:all var(--st-dur);cursor:pointer}
+.st-dots i.is-active{width:.5rem;height:.5rem;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.8)}
+
+/* ───────── 9. CONTEÚDO ───────── */
+.st-cover{position:relative;aspect-ratio:2/3;overflow:hidden;border-radius:var(--st-r-xl);border:1px solid #444;box-shadow:var(--st-sh-card);transition:transform .5s}
+.st-cover:hover{transform:scale(1.05)}
+.st-cover__fade{position:absolute;inset:0;background:linear-gradient(0deg,#080808,rgba(0,0,0,.2),transparent)}
+.st-cover__meta{position:absolute;left:1.5rem;right:1.5rem;bottom:2rem;z-index:2}
+.st-cover .st-tag{position:absolute;top:1rem;right:1rem;z-index:2}
+.st-persona{position:relative;aspect-ratio:11/17;overflow:hidden;border-radius:var(--st-r-2xl);border:1px solid var(--st-border-strong);background:var(--st-surface);box-shadow:var(--st-sh-card);cursor:pointer;transition:transform .4s,box-shadow .4s,border-color .4s}
+.st-persona:hover{transform:translateY(-2rem);box-shadow:var(--st-sh-card-hover);border-color:#555}
+.st-persona__art{position:absolute;inset:0;transition:transform .5s,filter .5s;filter:brightness(.7)} .st-persona:hover .st-persona__art{transform:scale(1.1);filter:brightness(.9)}
+.st-persona__info{position:absolute;inset:auto 0 0;padding:5rem 1.5rem 1.5rem;background:linear-gradient(0deg,#000,rgba(0,0,0,.9),transparent);opacity:0;transform:translateY(1.5rem);transition:all .4s;pointer-events:none}
+.st-persona:hover .st-persona__info{opacity:1;transform:none}
+.st-persona__dot{position:absolute;top:1.25rem;right:1.25rem;width:.625rem;height:.625rem;border-radius:50%;background:#fff;box-shadow:0 0 15px #fff}
+.st-quote{font:500 clamp(1.5rem,3vw,2.25rem)/1.35 var(--st-font-display);letter-spacing:-.025em;color:#fff;margin:0}
+.st-faq{border:1px solid rgba(255,255,255,.1);border-radius:var(--st-r-2xl);background:rgba(23,23,23,.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);overflow:hidden;transition:background var(--st-dur)}
+.st-faq[open]{background:linear-gradient(180deg,rgb(139 92 246/.15),rgb(139 92 246/.1),rgb(217 70 239/0))}
+.st-faq summary{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.5rem 2rem;list-style:none;cursor:pointer;font:600 1.125rem var(--st-font-display);letter-spacing:-.025em;color:#f5f5f5}
+.st-faq summary::-webkit-details-marker{display:none} .st-faq summary:hover{background:rgba(255,255,255,.05)}
+.st-faq summary::after{content:"+";flex:none;display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font:400 1.25rem var(--st-font-ui);transition:transform var(--st-dur)}
+.st-faq[open] summary::after{content:"–";transform:rotate(180deg)}
+.st-faq__body{padding:0 2rem 2rem;font:400 1rem/1.6 var(--st-font-display);color:#d4d4d4}
+.st-plan{position:relative;display:flex;flex-direction:column;padding:2rem 2rem 3rem;transition:border-color var(--st-dur-fast)}
+.st-plan__head{display:flex;gap:.75rem;align-items:center;margin-bottom:1.5rem}
+.st-plan__icon{display:grid;place-items:center;width:2.5rem;height:2.5rem;border-radius:var(--st-r-lg);border:1px solid var(--st-border-strong);background:var(--st-surface);color:var(--st-text-dim)}
+.st-plan ul{list-style:none;margin:0 0 2.5rem;padding:0;display:grid;gap:1rem;flex:1;font:400 .875rem var(--st-font-ui);color:var(--st-text-dim)}
+.st-plan li{display:flex;gap:.75rem;align-items:flex-start} .st-plan li::before{content:"✓";color:var(--st-text-muted)}
+/* ── borda de luz orbital (modal + plano destaque) ── */
+@property --st-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes st-spin{to{--st-angle:360deg}}
+@keyframes st-modal-in{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.st-modal,.st-plan--featured{--st-glow:.35;position:relative;isolation:isolate;border-radius:var(--st-r-3xl);transition:--st-glow .4s}
+.st-modal{max-width:28rem;animation:st-modal-in .6s var(--st-ease-out) both}
+.st-plan--featured{border-radius:var(--st-r-xl);padding:0;border:0;background:none}
+.st-modal::before,.st-plan--featured::before{content:"";position:absolute;inset:0;z-index:2;padding:1px;border-radius:inherit;pointer-events:none;background:conic-gradient(from var(--st-angle),transparent 0 48%,rgb(147 51 234/.2) 58%,var(--st-violet) 78%,var(--st-fuchsia) 91%,#fff 99.4%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:st-spin 5s linear infinite}
+.st-modal::after,.st-plan--featured::after{content:"";position:absolute;inset:-1px;z-index:-1;border-radius:inherit;background:conic-gradient(from var(--st-angle),transparent 0 52%,var(--st-violet) 80%,var(--st-fuchsia) 95%,transparent 100%);filter:blur(28px);opacity:var(--st-glow);transition:opacity .4s;animation:st-spin 5s linear infinite}
+.st-modal:focus-within,.st-plan--featured:hover{--st-glow:.65}
+.st-modal__body,.st-plan--featured .st-plan__body{position:relative;border-radius:inherit;border:1px solid rgba(255,255,255,.08);background:radial-gradient(120% 80% at 0% 0%,rgba(147,51,234,.16),transparent 60%),radial-gradient(100% 70% at 100% 100%,rgba(217,70,239,.12),transparent 60%),linear-gradient(180deg,#0e0e10,#080808);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -24px 40px -24px rgba(255,255,255,.05)}
+.st-modal__body{padding:1.5rem}
+.st-plan--featured .st-plan__body{display:flex;flex-direction:column;flex:1;padding:2rem}
+.st-plan--featured .st-plan__body .st-badge{position:absolute;top:0;right:2rem;transform:translateY(-50%);z-index:3}
+.st-plan--featured li{color:var(--st-text-soft)}
+.st-plan--featured li::before{content:"✓";display:grid;place-items:center;flex:none;width:1.25rem;height:1.25rem;margin-top:.125rem;border-radius:50%;background:var(--st-violet-ui);color:#fff;font-size:.7rem}
+.st-backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(12px)}
+
+/* ───────── 10. MOVIMENTO ───────── */
+@keyframes st-fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes st-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(0)}}
+@keyframes st-pulse{50%{opacity:.5}}
+@keyframes st-rotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.st-fade-up{opacity:0;animation:st-fade-up var(--st-dur-slow) var(--st-ease-out) forwards}
+.st-delay-1{animation-delay:.1s}.st-delay-2{animation-delay:.2s}.st-delay-3{animation-delay:.3s}
+.st-float{animation:st-float 6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.st-fade-up{opacity:1;animation:none}.st-float,.st-badge__dot,.st-modal,.st-modal::before,.st-modal::after,.st-plan--featured::before,.st-plan--featured::after{animation:none;--st-angle:150deg}.st-btn,.st-cta,.st-navlink,.st-persona{transition:none}}
+
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+*,*::before,*::after{box-sizing:border-box}
+.dk{display:grid;grid-template-columns:15rem minmax(0,1fr);max-width:84rem;margin:0 auto}
+.side{position:sticky;top:0;align-self:start;height:100vh;padding:2rem 1.5rem;border-right:1px solid var(--st-border);overflow-y:auto}
+.side nav{display:grid;gap:.25rem;margin-top:2rem}
+.side nav b{font:600 11px var(--st-font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--st-text-muted);margin:1.25rem 0 .5rem}
+.side nav a{font:500 .875rem var(--st-font-ui);color:var(--st-text-dim);text-decoration:none;padding:.375rem .75rem;border-radius:var(--st-r-md);transition:all .2s}
+.side nav a:hover{color:#fff;background:var(--st-surface)} .side nav a.on{color:#000;background:#fff}
+main{padding:3rem clamp(1.25rem,4vw,4rem) 6rem;min-width:0}
+section{padding-top:4rem} section>header{margin-bottom:2rem;display:grid;gap:.75rem;max-width:40rem}
+.sub{font:500 .875rem var(--st-font-ui);color:#fff;margin:2.5rem 0 1rem}
+.sw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:.75rem}
+.sw{padding:0;overflow:hidden;cursor:pointer;text-align:left;color:inherit;font:inherit;border:1px solid var(--st-border);border-radius:var(--st-r-lg);background:var(--st-surface);transition:all .2s}
+.sw:hover{border-color:var(--st-border-hover);transform:translateY(-2px)}
+.sw i{display:block;height:4rem;border-bottom:1px solid var(--st-border)}
+.sw span{display:block;padding:.625rem .75rem;font:500 .75rem var(--st-font-ui);color:#fff}
+.sw small{display:block;font:400 11px ui-monospace,monospace;color:var(--st-text-dim);margin-top:.125rem}
+.demo{border:1px solid var(--st-border);border-radius:var(--st-r-xl);overflow:hidden;margin-bottom:1.5rem;background:var(--st-bg-raised)}
+.demo__top{display:flex;justify-content:space-between;align-items:center;padding:.625rem 1rem;border-bottom:1px solid var(--st-border);font:500 .75rem var(--st-font-ui);color:var(--st-text-dim)}
+.demo__top div{display:flex;gap:.5rem}
+.demo__top button{font:500 .75rem var(--st-font-ui);color:var(--st-text-dim);background:none;border:1px solid var(--st-border-strong);border-radius:var(--st-r-full);padding:.25rem .75rem;cursor:pointer;transition:all .2s}
+.demo__top button:hover{background:#fff;color:#000}
+.demo__stage{padding:2rem;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px}
+.demo__stage.col{flex-direction:column;align-items:stretch}
+.demo__stage.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));align-items:stretch}
+pre{margin:0;padding:1rem 1.25rem;overflow-x:auto;background:#000;border-top:1px solid var(--st-border);font:400 12px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c4b5fd}
+.demo pre{display:none} .demo.open pre{display:block}
+.code{position:relative;border:1px solid var(--st-border);border-radius:var(--st-r-lg);overflow:hidden;margin:.75rem 0}
+.code pre{border:0} .code button{position:absolute;top:.5rem;right:.5rem;font:500 .75rem var(--st-font-ui);color:var(--st-text-dim);background:var(--st-surface);border:1px solid var(--st-border-strong);border-radius:var(--st-r-full);padding:.25rem .75rem;cursor:pointer}
+.code button:hover{background:#fff;color:#000}
+.spec{display:grid;grid-template-columns:9rem 1fr;gap:1rem;align-items:baseline;padding:1.25rem 0;border-bottom:1px solid var(--st-border)}
+.spec code{font:400 11px ui-monospace,monospace;color:var(--st-text-dim)}
+.tok{display:grid;grid-template-columns:repeat(auto-fill,minmax(9rem,1fr));gap:.75rem}
+.tok button{display:grid;gap:.75rem;justify-items:start;padding:1rem;background:var(--st-surface);border:1px solid var(--st-border);border-radius:var(--st-r-lg);color:#fff;font:500 .75rem var(--st-font-ui);cursor:pointer;text-align:left}
+.tok button:hover{border-color:var(--st-border-hover)} .tok button small{color:var(--st-text-dim);font:400 11px ui-monospace,monospace}
+.tok .box{width:3rem;height:3rem;background:var(--st-border-strong);border:1px solid var(--st-border-hover)}
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,2rem);opacity:0;padding:.625rem 1.25rem;border-radius:var(--st-r-full);background:#fff;color:#000;font:500 .875rem var(--st-font-ui);transition:all .3s var(--st-ease-spring);z-index:50;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.menu{display:none}
+@media(max-width:860px){.dk{display:block}.side{position:sticky;height:auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;border:0;border-bottom:1px solid var(--st-border);background:rgba(5,5,5,.85);backdrop-filter:blur(12px);z-index:20}.side nav{display:none;position:absolute;top:100%;left:0;right:0;margin:0;padding:1rem;background:var(--st-bg-raised);border-bottom:1px solid var(--st-border)}.side.open nav{display:grid}.menu{display:inline-flex}.spec{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="st-body">
+<div class="st-grid-bg"></div>
+<div class="dk">
+<aside class="side" id="side">
+  <span class="st-brand"><svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8 36 16v16L24 40 12 32V16Z" fill="currentColor"/></svg>Storielle</span>
+  <button class="st-icon-btn menu" aria-label="Menu" onclick="side.classList.toggle('open')">☰</button>
+  <nav id="nav">
+    <b>Começar</b><a href="#intro">Visão geral</a><a href="#instalar">Instalação</a>
+    <b>Fundamentos</b><a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#tokens">Raio, sombra, movimento</a>
+    <b>Componentes</b><a href="#botoes">Botões</a><a href="#superficies">Superfícies</a><a href="#formularios">Formulários</a><a href="#conteudo">Conteúdo</a><a href="#planos">Planos &amp; FAQ</a><a href="#modal">Modal de acesso</a>
+  </nav>
+</aside>
+<main>
+<section id="intro" style="padding-top:0">
+  <span class="st-badge st-fade-up">Design System v1.0 <i class="st-badge__dot"></i></span>
+  <h1 class="st-display st-fade-up st-delay-1" style="margin:1.5rem 0">Storielle<br>Design System</h1>
+  <p class="st-lead st-fade-up st-delay-2" style="max-width:36rem">Preto profundo, tipografia editorial e um CTA laranja luminoso. Tokens, componentes e movimentos extraídos fielmente da landing page Storielle, prontos para instalar.</p>
+  <div class="st-fade-up st-delay-3" style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2rem;align-items:center">
+    <a href="#instalar" class="st-frame"><button class="st-cta">Instalar agora</button></a>
+    <a href="#componentes" class="st-btn" onclick="document.getElementById('botoes').scrollIntoView();return false">Ver componentes</a>
+  </div>
+</section>
+
+<section id="instalar">
+  <header><span class="st-eyebrow">Começar</span><h2 class="st-h2">Instalação</h2><p class="st-text">Escolha o caminho que combina com seu projeto. Todas as classes usam o prefixo <code style="color:#c4b5fd">st-</code> e os tokens ficam em variáveis CSS <code style="color:#c4b5fd">--st-*</code>.</p></header>
+  <div class="sub">1 · Via npm</div>
+  <div class="code"><button data-copy>Copiar</button><pre>npm install @storielle/design-system
+
+/* no seu CSS ou entrypoint JS */
+import "@storielle/design-system";</pre></div>
+  <div class="sub">2 · Direto no HTML</div>
+  <div class="code"><button data-copy>Copiar</button><pre>&lt;link rel="stylesheet" href="storielle.css"&gt;
+
+&lt;body class="st-body"&gt;
+  &lt;div class="st-grid-bg"&gt;&lt;/div&gt;
+  &lt;button class="st-cta"&gt;Start Your Blueprint&lt;/button&gt;
+&lt;/body&gt;</pre></div>
+  <div class="sub">3 · Preset do Tailwind (mesmos tokens como utilitários)</div>
+  <div class="code"><button data-copy>Copiar</button><pre>// tailwind.config.js
+module.exports = {
+  presets: [require("@storielle/design-system/tailwind")],
+};
+// uso: bg-st-surface text-st-dim border-st-border font-display rounded-st-xl</pre></div>
+</section>
+
+<section id="cores">
+  <header><span class="st-eyebrow">Fundamentos</span><h2 class="st-h2">Cores</h2><p class="st-text">Clique em qualquer cor para copiar a variável CSS.</p></header>
+  <div id="colors"></div>
+</section>
+
+<section id="tipografia">
+  <header><span class="st-eyebrow">Fundamentos</span><h2 class="st-h2">Tipografia</h2><p class="st-text"><b style="color:#fff">Plus Jakarta Sans</b> para títulos e números, <b style="color:#fff">Geist</b> para interface e rótulos, <b style="color:#fff">Inter</b> como base do documento.</p></header>
+  <div class="spec"><code>.st-display<br>Jakarta 500 · 72/76</code><p class="st-display">Master the architecture</p></div>
+  <div class="spec"><code>.st-h2<br>Jakarta 500 · 48</code><p class="st-h2">The Narrative Engine</p></div>
+  <div class="spec"><code>.st-h3<br>Jakarta 500 · 20</code><p class="st-h3">The Architect</p></div>
+  <div class="spec"><code>.st-lead<br>Jakarta 400 · 20</code><p class="st-lead">Build complex worlds, weave intricate plots, and publish directly.</p></div>
+  <div class="spec"><code>.st-text<br>Geist 400 · 16</code><p class="st-text">Select high-level parameters to generate structural foundations.</p></div>
+  <div class="spec"><code>.st-small<br>Geist 400 · 14</code><p class="st-small">Essential tools for your first idea.</p></div>
+  <div class="spec"><code>.st-caption<br>Geist 400 · 12</code><p class="st-caption">No credit card required</p></div>
+  <div class="spec"><code>.st-eyebrow<br>Geist 600 · 12 · caps</code><span class="st-eyebrow">The Core Workflow</span></div>
+  <div class="spec"><code>.st-number</code><span class="st-number">2.5M</span></div>
+</section>
+
+<section id="tokens">
+  <header><span class="st-eyebrow">Fundamentos</span><h2 class="st-h2">Raio, sombra e movimento</h2></header>
+  <div class="sub">Raios</div><div class="tok" id="radii"></div>
+  <div class="sub">Sombras</div><div class="tok" id="shadows"></div>
+  <div class="sub">Easings</div><div class="tok" id="eases"></div>
+  <div class="sub">Espaçamento (base 4px)</div><div class="tok" id="spaces"></div>
+</section>
+
+<section id="componentes" style="padding-top:2rem"><header><span class="st-eyebrow">Componentes</span><h2 class="st-h2">Biblioteca</h2><p class="st-text">Cada bloco mostra o resultado real. Use “Ver código” para copiar o HTML.</p></header></section>
+
+<section id="botoes" style="padding-top:1rem">
+  <h3 class="st-h3" style="margin-bottom:1.5rem">Botões</h3>
+  <div class="demo" data-t="CTA laranja + moldura animada"><div class="demo__stage">
+    <button class="st-cta">Start Your Blueprint</button>
+    <a href="#" class="st-frame" onclick="return false"><button class="st-cta">Com moldura (hover)</button></a>
+  </div></div>
+  <div class="demo" data-t="Variantes"><div class="demo__stage">
+    <button class="st-btn">Padrão</button>
+    <button class="st-btn st-btn--pill st-btn--outline">Start Creating</button>
+    <button class="st-btn st-btn--pill st-btn--white">Get Full Access</button>
+    <button class="st-btn st-btn--pill st-btn--dark">Contact for Teams</button>
+    <button class="st-icon-btn" aria-label="Próximo">→</button>
+  </div></div>
+</section>
+
+<section id="superficies" style="padding-top:2rem">
+  <h3 class="st-h3" style="margin-bottom:1.5rem">Superfícies &amp; badges</h3>
+  <div class="demo" data-t="Cards de estatística"><div class="demo__stage grid">
+    <div class="st-glass st-stat"><h2 class="st-number">2.5M</h2><p class="st-small">Chapters published to Wattpad.</p></div>
+    <div class="st-glass st-stat"><h2 class="st-number">120k+</h2><p class="st-small">Active writers crafting daily.</p></div>
+    <div class="st-glass st-stat st-stat--light"><span class="st-eyebrow">Success</span><h2 class="st-number">84%</h2><p class="st-small">Higher reader retention.</p></div>
+  </div></div>
+  <div class="demo" data-t="Badges e tags"><div class="demo__stage">
+    <span class="st-badge">Wattpad Integration Live <i class="st-badge__dot"></i></span>
+    <span class="st-badge st-badge--popular">Popular</span>
+    <span class="st-tag">Wattpad Hit</span>
+  </div></div>
+  <div class="demo" data-t="Janela de app"><div class="demo__stage col"><div class="st-window"><div class="st-window__bar"><i></i><i></i><i></i><span>app.storielle.com/engine</span></div><div style="padding:1.5rem"><p class="st-small">Conteúdo do aplicativo vive aqui.</p></div></div></div></div>
+</section>
+
+<section id="formularios" style="padding-top:2rem">
+  <h3 class="st-h3" style="margin-bottom:1.5rem">Formulários</h3>
+  <div class="demo" data-t="Opções, switches e input"><div class="demo__stage grid">
+    <div style="display:grid;gap:.5rem">
+      <label class="st-option"><input type="checkbox" class="st-check" checked> Dystopian Megacity</label>
+      <label class="st-option"><input type="checkbox" class="st-check"> Isolated Space Station</label>
+    </div>
+    <div style="display:grid;gap:1.25rem;align-content:center">
+      <label class="st-row">Psychological Tension <input type="checkbox" class="st-switch" checked></label>
+      <label class="st-row">Character Chemistry <input type="checkbox" class="st-switch"></label>
+    </div>
+    <div class="st-field"><label class="st-label" for="e">Email address</label><input id="e" class="st-input" type="email" placeholder="name@example.com"><p class="st-help">We will only use this to secure your account.</p></div>
+  </div></div>
+  <div class="demo" data-t="Abas segmentadas"><div class="demo__stage"><div class="st-tabs" style="min-width:18rem" id="tabs"><button aria-selected="true">Sign up</button><button aria-selected="false">Sign in</button></div></div></div>
+</section>
+
+<section id="conteudo" style="padding-top:2rem">
+  <h3 class="st-h3" style="margin-bottom:1.5rem">Conteúdo</h3>
+  <div class="demo" data-t="Capa de livro e arquétipo"><div class="demo__stage" style="gap:3rem;padding:3rem 2rem 2rem">
+    <div class="st-cover st-float" style="width:14rem"><div style="position:absolute;inset:0;background:linear-gradient(160deg,#1e1b4b,#7c2d12 70%,#111)"></div><div class="st-cover__fade"></div><span class="st-tag">Wattpad Hit</span><div class="st-cover__meta"><p class="st-caption" style="color:rgba(255,255,255,.7);letter-spacing:.1em;text-transform:uppercase">Sci-Fi Romance</p><h3 class="st-h3" style="font-size:1.5rem">Echoes of<br>Neon</h3><p class="st-caption">By A. K. Writer</p></div></div>
+    <div class="st-persona" style="width:12rem"><div class="st-persona__art" style="background:linear-gradient(200deg,#3b0764,#0c0a09)"></div><i class="st-persona__dot"></i><div class="st-persona__info"><h4 class="st-h4">The Disgraced Heir</h4><p class="st-caption" style="color:rgba(255,255,255,.7)">Once at the top, now cast out.</p></div></div>
+  </div></div>
+  <div class="demo" data-t="Depoimento"><div class="demo__stage col"><figure class="st-ring-card" style="margin:0"><blockquote class="st-quote">“The perfect bridge between an idea and a finished outline.”</blockquote><figcaption style="margin-top:1.5rem"><p class="st-label">Sarah L.</p><p class="st-small">Indie Novelist</p></figcaption></figure></div></div>
+</section>
+
+<section id="planos" style="padding-top:2rem">
+  <h3 class="st-h3" style="margin-bottom:1.5rem">Planos &amp; FAQ</h3>
+  <div class="demo" data-t="Cards de preço"><div class="demo__stage grid" style="padding-top:3rem">
+    <div class="st-glass st-glass--hover st-plan"><div class="st-plan__head"><div class="st-plan__icon">✎</div><div><h3 class="st-h3">The Sketchbook</h3><p class="st-caption" style="color:var(--st-text-dim)">Essential tools.</p></div></div><div style="margin-bottom:2rem"><span class="st-price">$0</span> <span class="st-small">forever</span></div><ul><li>1 Active project limit</li><li>Basic world-building tools</li></ul><button class="st-btn st-btn--pill st-btn--outline st-btn--block">Start Creating</button></div>
+    <div class="st-plan st-plan--featured"><div class="st-plan__body"><span class="st-badge st-badge--popular">Popular</span><div class="st-plan__head"><div class="st-plan__icon" style="color:#c084fc">★</div><div><h3 class="st-h3">The Architect</h3><p class="st-caption" style="color:var(--st-text-dim)">For authors ready to publish.</p></div></div><div style="margin-bottom:2rem"><span class="st-price">$12</span> <span class="st-small">/ month</span></div><ul><li>Unlimited active projects</li><li>Advanced narrative plot trees</li></ul><button class="st-btn st-btn--pill st-btn--white st-btn--block">Get Full Access</button></div></div>
+  </div></div>
+  <div class="demo" data-t="FAQ (sem JavaScript)"><div class="demo__stage col">
+    <details class="st-faq" open><summary>Do I keep the rights to my stories?</summary><div class="st-faq__body">Yes, 100%. You own everything you create.</div></details>
+    <details class="st-faq"><summary>Can I export to Wattpad?</summary><div class="st-faq__body">Direct sync and export are included in The Architect.</div></details>
+  </div></div>
+</section>
+
+<section id="modal" style="padding-top:2rem">
+  <h3 class="st-h3" style="margin-bottom:1.5rem">Modal de acesso</h3>
+  <div class="demo" data-t="Modal com borda giratória"><div class="demo__stage" style="justify-content:center"><div class="st-modal" style="width:100%"><div class="st-modal__body">
+    <span class="st-eyebrow" style="font-size:10px;margin-bottom:.5rem">Access Storielle</span><h3 class="st-h2" style="font-size:1.5rem;margin-bottom:1.25rem">Create your account</h3>
+    <div class="st-tabs" style="margin-bottom:1.25rem"><button aria-selected="true">Sign up</button><button aria-selected="false">Sign in</button></div>
+    <button class="st-provider"><span class="st-provider__icon">W</span><span><b>Continue with Wattpad</b><small>Connect your stories and drafts</small></span></button>
+    <div class="st-or" style="margin:1.25rem 0">or continue with email</div>
+    <div class="st-field" style="margin-bottom:1rem"><label class="st-label">Email address</label><input class="st-input" placeholder="name@example.com"></div>
+    <button class="st-cta st-cta--lg">Create account</button>
+  </div></div></div></div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast">Copiado!</div>
+<script>
+const $=s=>document.querySelector(s),toast=$('#toast');
+function copy(t){try{navigator.clipboard.writeText(t)}catch(e){};toast.textContent='Copiado: '+(t.length>30?t.slice(0,30)+'…':t);toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1400)}
+const C={Superfícies:[['bg','#050505','Fundo'],['bg-raised','#0a0a0a','Elevado'],['surface','#111111','Card'],['border','#222222','Borda'],['border-strong','#333333','Borda forte'],['border-hover','#444444','Borda hover']],
+Texto:[['text','#ffffff','Principal'],['text-soft','#dddddd','Suave'],['text-dim','#888888','Secundário'],['text-faint','#666666','Placeholder'],['text-muted','#555555','Mudo']],
+'Marca (CTA)':[['brand-300','#fcd34d','Âmbar'],['brand-400','#fb923c','Laranja 400'],['brand-500','#f97316','Laranja 500'],['brand-glow','rgba(248,181,129,.55)','Brilho']],
+Destaque:[['violet','#9333ea','Violeta'],['violet-ui','hsl(266 92% 58%)','Violeta UI'],['fuchsia','#d946ef','Fúcsia']],
+Apoio:[['sky','#38bdf8','Céu'],['emerald','#10b981','Esmeralda'],['amber','#d97706','Tag'],['cursor','#ffca28','Cursor']]};
+const col=$('#colors');for(const g in C){col.insertAdjacentHTML('beforeend',`<div class="sub">${g}</div><div class="sw-grid">`+C[g].map(([n,v,l])=>`<button class="sw" data-v="var(--st-${n})"><i style="background:${v}"></i><span>${l}<small>--st-${n}</small></span></button>`).join('')+'</div>')}
+const T=(id,arr,f)=>$(id).innerHTML=arr.map(([n,v])=>`<button data-v="var(--st-${n})"><div class="box" style="${f(v)}"></div>${n}<small>${v}</small></button>`).join('');
+T('#radii',[['r-sm','4px'],['r-md','6px'],['r-lg','12px'],['r-xl','16px'],['r-2xl','24px'],['r-3xl','28px'],['r-full','9999px']],v=>`border-radius:${v}`);
+T('#shadows',[['sh-card','0 20px 50px rgba(0,0,0,.8)'],['sh-violet','0 0 40px rgba(147,51,234,.14)'],['sh-white','0 0 20px rgba(255,255,255,.2)'],['sh-cta','0 0 22px rgba(248,181,129,.55)']],v=>`box-shadow:${v};background:#111;border-radius:12px`);
+$('#eases').innerHTML=[['ease-out','cubic-bezier(.16,1,.3,1)','Entradas'],['ease-card','cubic-bezier(.25,1,.5,1)','Cards 3D'],['ease-spring','cubic-bezier(.34,1.56,.64,1)','Nav, switches']].map(([n,v,d])=>`<button data-v="var(--st-${n})" class="ez"><div style="width:100%;height:.5rem;background:var(--st-border);border-radius:9px;position:relative"><i style="position:absolute;top:-2px;left:0;width:.75rem;height:.75rem;border-radius:50%;background:#fff;transition:left 1.2s ${v}"></i></div>${n}<small>${d}</small></button>`).join('');
+document.querySelectorAll('.ez').forEach(b=>{const i=b.querySelector('i');b.onmouseenter=()=>i.style.left='calc(100% - .75rem)';b.onmouseleave=()=>i.style.left='0'});
+$('#spaces').innerHTML=[1,2,3,4,6,8,12,16,24].map(n=>`<button data-v="var(--st-s-${n})"><div class="box" style="width:${n*4}px;height:1rem;border-radius:2px;background:#fff"></div>s-${n}<small>${n*4}px</small></button>`).join('');
+document.addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(b)copy(b.dataset.v);const c=e.target.closest('[data-copy]');if(c)copy(c.nextElementSibling.textContent)});
+document.querySelectorAll('.demo').forEach(d=>{const s=d.querySelector('.demo__stage'),h=s.innerHTML.replace(/\s*\n\s*/g,'\n').trim();
+ const top=document.createElement('div');top.className='demo__top';top.innerHTML=`<span>${d.dataset.t}</span><div><button data-a="c">Ver código</button><button data-a="k">Copiar HTML</button></div>`;d.prepend(top);
+ const p=document.createElement('pre');p.textContent=h;d.append(p);
+ top.onclick=e=>{const a=e.target.dataset.a;if(a==='c'){d.classList.toggle('open');e.target.textContent=d.classList.contains('open')?'Ocultar':'Ver código'}if(a==='k')copy(h)}});
+document.querySelectorAll('.st-tabs').forEach(t=>t.addEventListener('click',e=>{if(e.target.tagName==='BUTTON')t.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b===e.target))}));
+const links=[...document.querySelectorAll('#nav a')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+addEventListener('scroll',()=>{let k=0;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<140)k=i});links.forEach((a,i)=>a.classList.toggle('on',i===k))},{passive:true});
+links.forEach(a=>a.addEventListener('click',()=>side.classList.remove('open')));
+</script>
+</body>
+</html>

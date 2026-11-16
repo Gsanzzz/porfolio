@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guilherme Sanz — Designer & Developer</title>
+<meta name="description" content="Portfolio de Guilherme Sanz — UX/UI Designer, Desenvolvedor Web & Apps, Editor de Vídeo, Design Gráfico, Branding & Rebranding.">
+<link rel="stylesheet" href="package/dist/storielle.css">
+<style>
+/* ───────── PORTFOLIO OVERRIDES ───────── */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body, a, button, input, textarea, select, label{cursor:none !important}
+img{display:block;max-width:100%;height:auto}
+
+/* ───────── CUSTOM MOUSE FOLLOWER (GLOW RING & DOT) ───────── */
+.pf-cursor-dot,
+.pf-cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);opacity:0;will-change:left,top,transform,width,height,opacity}
+.pf-cursor-dot{width:6px;height:6px;background:var(--st-brand-300);box-shadow:0 0 10px var(--st-brand-300),0 0 16px rgba(252,211,77,.8);transition:opacity .25s ease}
+.pf-cursor-ring{width:36px;height:36px;border:2px solid var(--st-brand-300);background:radial-gradient(circle,rgba(251,146,60,.35) 0%,rgba(252,211,77,.1) 50%,transparent 75%);box-shadow:0 0 16px rgba(252,211,77,.5),inset 0 0 10px rgba(252,211,77,.25);transition:width .28s var(--st-ease-spring),height .28s var(--st-ease-spring),border-color .25s ease,box-shadow .25s ease,background .25s ease,opacity .25s ease}
+.pf-cursor-ring.is-hover{width:56px;height:56px;border-color:#ffffff;background:radial-gradient(circle,rgba(255,255,255,.18) 0%,rgba(252,211,77,.18) 60%,transparent 85%);box-shadow:0 0 24px rgba(255,255,255,.7),inset 0 0 14px rgba(252,211,77,.4)}
+.pf-cursor-ring.is-click{transform:translate(-50%,-50%) scale(.82)}
+@media(hover:none) and (pointer:coarse){.pf-cursor-dot,.pf-cursor-ring{display:none !important}}
+
+/* NAV */
+.pf-nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:.875rem 0;transition:background var(--st-dur-fast),backdrop-filter var(--st-dur-fast)}
+.pf-nav.scrolled{background:rgba(5,5,5,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--st-border)}
+.pf-nav__inner{display:flex;align-items:center;justify-content:space-between;max-width:80rem;margin:0 auto;padding:0 1.5rem}
+.pf-nav__links{display:flex;align-items:center;gap:2rem}
+.pf-nav__mobile{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
+
+/* ───────── STORYTELLING SYSTEM ───────── */
+.pf-story-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--st-brand-400),var(--st-brand-300),var(--st-violet),var(--st-fuchsia));z-index:9999;width:0%;box-shadow:0 0 14px var(--st-brand-glow);transition:width .08s linear}
+
+/* FLOATING STORY CHAPTER TRACKER */
+.pf-story-tracker{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;gap:.875rem;background:rgba(12,12,14,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:.875rem .625rem;border-radius:var(--st-r-full);border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 36px rgba(0,0,0,.6)}
+.pf-story-dot{position:relative;width:.5rem;height:.5rem;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all var(--st-dur-fast) var(--st-ease-spring);display:flex;align-items:center;justify-content:center}
+.pf-story-dot:hover{background:#fff;transform:scale(1.4)}
+.pf-story-dot.is-active{width:.625rem;height:.625rem;background:#fff;box-shadow:0 0 10px #fff,0 0 16px var(--st-brand-glow)}
+.pf-story-dot span{position:absolute;right:1.75rem;background:rgba(15,15,18,.95);border:1px solid rgba(255,255,255,.12);color:#fff;font:500 .6875rem var(--st-font-ui);padding:.25rem .65rem;border-radius:var(--st-r-md);white-space:nowrap;pointer-events:none;opacity:0;transform:translateX(6px);transition:all .18s;box-shadow:0 8px 20px rgba(0,0,0,.6)}
+.pf-story-dot:hover span{opacity:1;transform:none}
+
+/* CHAPTER CUES & EYEBROWS */
+.pf-chapter-cue{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:1rem;font:600 .75rem/1 var(--st-font-ui);letter-spacing:.12em;text-transform:uppercase}
+.pf-chapter-num{color:var(--st-brand-400);background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);padding:.25rem .6rem;border-radius:var(--st-r-full)}
+.pf-chapter-line{width:1.5rem;height:1px;background:rgba(255,255,255,.2)}
+.pf-chapter-title{color:var(--st-text-dim)}
+
+/* STORY BRIDGES */
+.pf-story-bridge{padding:3.5rem 1.5rem;text-align:center;position:relative}
+.pf-story-bridge blockquote{font:400 clamp(1.2rem,2.2vw,1.75rem)/1.45 var(--st-font-display);color:var(--st-text-soft);max-width:44rem;margin:0 auto;letter-spacing:-.02em}
+.pf-story-bridge em{color:#fff;font-style:normal;background:linear-gradient(90deg,#fff 30%,var(--st-brand-300) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* NARRATIVE PROCESS ACTS */
+.pf-acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin-top:1.5rem}
+.pf-act{padding:1.5rem;border-radius:var(--st-r-xl);background:rgba(17,17,17,.5);border:1px solid var(--st-border);transition:all var(--st-dur-fast)}
+.pf-act:hover{border-color:var(--st-border-hover);transform:translateY(-3px);background:rgba(25,25,28,.6)}
+.pf-act__num{font:600 .6875rem var(--st-font-ui);letter-spacing:.12em;color:var(--st-brand-400);margin-bottom:.5rem;text-transform:uppercase}
+.pf-act h4{font:600 1rem var(--st-font-display);color:#fff;margin:0 0 .5rem}
+.pf-act p{font:400 .8125rem/1.5 var(--st-font-ui);color:var(--st-text-dim);margin:0}
+
+/* ───────── INNOVATIVE HERO: CREATIVE ENGINE STUDIO ───────── */
+.pf-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7.5rem 0 4rem;position:relative;overflow:hidden;text-align:center}
+.pf-hero__header{max-width:54rem;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1.25rem}
+.pf-hero__badge{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1.1rem;border:1px solid rgba(16,185,129,.35);border-radius:var(--st-r-full);background:rgba(16,185,129,.08);color:#10b981;font:500 .75rem var(--st-font-ui);letter-spacing:.06em}
+.pf-hero__badge i{width:.5rem;height:.5rem;border-radius:50%;background:#10b981;box-shadow:0 0 10px #10b981;animation:st-pulse 2s infinite}
+.pf-hero__title{font:600 clamp(2.5rem,6vw,4.75rem)/1.08 var(--st-font-display);letter-spacing:-.03em;color:#fff;margin:0}
+.pf-hero__title span{background:linear-gradient(135deg,#ffffff 20%,#fcd34d 70%,#fb923c 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* BUTTONS */
+.pf-hero__actions{display:flex;align-items:center;justify-content:center;gap:1.25rem;margin-top:.75rem;flex-wrap:wrap}
+.pf-hero-cta{display:inline-flex !important;align-items:center !important;gap:.5rem !important;padding:0 1.75rem !important;height:2.75rem !important;font-size:13px !important}
+.pf-hero-secondary{display:inline-flex !important;align-items:center !important;gap:.6rem !important;padding:0 1.5rem !important;height:2.75rem !important;border-radius:var(--st-r-full) !important;font-size:13px !important;text-decoration:none !important}
+
+/* THE STUDIO CANVAS WINDOW */
+.pf-studio{width:100%;max-width:76rem;margin:3.5rem auto 0;border-radius:var(--st-r-2xl);box-shadow:0 30px 80px rgba(0,0,0,.9),0 0 60px rgba(147,51,234,.12);border:1px solid rgba(255,255,255,.12);background:rgba(10,10,12,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);overflow:hidden}
+.pf-studio .st-window__bar{padding:0 1.5rem;background:rgba(17,17,17,.95);display:flex;align-items:center;justify-content:space-between}
+.pf-studio__grid{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:1.5rem;padding:2.25rem;align-items:stretch}
+
+/* BENTO CARD */
+.pf-bento{padding:1.75rem;border-radius:var(--st-r-xl);display:flex;flex-direction:column;gap:1.25rem;text-align:left;justify-content:space-between;background:rgba(17,17,17,.5);border:1px solid rgba(255,255,255,.08);transition:border-color var(--st-dur-fast),transform var(--st-dur-fast)}
+.pf-bento:hover{border-color:var(--st-border-hover);transform:translateY(-2px)}
+.pf-bento__head{display:flex;align-items:center;justify-content:space-between}
+.pf-bento h4{font:600 1rem var(--st-font-display);color:#fff;margin:0;display:flex;align-items:center;gap:.5rem}
+.pf-bento p{font:400 .8125rem/1.5 var(--st-font-ui);color:var(--st-text-dim);margin:0}
+.pf-bento__tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.pf-bento__tags span{font:500 .7rem var(--st-font-ui);padding:.25rem .5rem;border-radius:var(--st-r-md);background:rgba(255,255,255,.06);color:var(--st-text-soft);border:1px solid rgba(255,255,255,.06)}
+
+/* CENTER PORTAL */
+.pf-portal{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem 0}
+.pf-portal__glow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.32) 0%,rgba(147,51,234,.25) 50%,transparent 75%);filter:blur(50px);pointer-events:none;z-index:0}
+.pf-portal__orbit{position:relative;border-radius:var(--st-r-2xl);padding:2px;background:conic-gradient(from var(--st-angle),transparent 0 45%,rgb(147 51 234/.3) 60%,var(--st-violet) 80%,var(--st-brand-400) 93%,#fff 99.5%,transparent 100%);animation:st-spin 6s linear infinite;z-index:2;box-shadow:0 20px 50px rgba(0,0,0,.8)}
+.pf-portal__orbit-inner{position:relative;border-radius:calc(var(--st-r-2xl) - 2px);overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#181028 0%,#08080a 70%);width:300px;height:360px;display:flex;align-items:flex-end;justify-content:center}
+.pf-portal__img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:contrast(1.05) brightness(.98);-webkit-mask-image:linear-gradient(to bottom,black 82%,transparent 100%);mask-image:linear-gradient(to bottom,black 82%,transparent 100%);transition:transform .4s var(--st-ease-card)}
+.pf-portal__orbit:hover .pf-portal__img{transform:scale(1.04)}
+
+/* REAL FIGMA MULTIPLAYER CURSOR */
+@keyframes pf-figma-drift{
+  0%,100%{transform:translate(0,0)}
+  25%{transform:translate(-8px,7px)}
+  50%{transform:translate(5px,14px)}
+  75%{transform:translate(-5px,4px)}
+}
+.pf-figma-cursor{position:absolute;top:8%;right:-2.5rem;z-index:10;display:flex;flex-direction:column;align-items:flex-start;pointer-events:none;animation:pf-figma-drift 6s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(0,0,0,.7))}
+.pf-figma-pointer{display:block;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
+.pf-figma-tag{background:var(--st-cursor);color:#000;font-family:var(--st-font-ui);font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:0 6px 6px 6px;box-shadow:0 4px 14px rgba(0,0,0,.5);white-space:nowrap;letter-spacing:-.01em;margin-top:-3px;margin-left:11px}
+
+/* LIVE STATUS BADGE */
+.pf-portal__status{margin-top:1.25rem;z-index:3}
+
+/* GLOW ORB */
+.pf-glow{position:absolute;width:600px;height:600px;border-radius:50%;pointer-events:none;opacity:.12;filter:blur(120px)}
+.pf-glow--violet{background:var(--st-violet);top:-10%;right:-5%}
+.pf-glow--orange{background:var(--st-brand-500);bottom:-15%;left:-10%}
+
+/* SECTIONS */
+.pf-section{padding:6rem 0}
+.pf-section__header{text-align:center;margin-bottom:4rem;max-width:40rem;margin-inline:auto}
+.pf-section__header .st-lead{margin-top:1rem}
+
+/* SERVICES */
+.pf-services{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.pf-services > .pf-service:nth-child(5){grid-column:2}
+/* Service card = st-glass + st-plan (DS) com borda cônica animada no hover */
+.pf-service{position:relative;isolation:isolate;overflow:hidden;padding:2rem 1.75rem 1.75rem;transition:translate .45s var(--st-ease-spring),border-color var(--st-dur),box-shadow .45s}
+.pf-service::before{content:"";position:absolute;inset:0;z-index:3;padding:1px;border-radius:inherit;pointer-events:none;background:conic-gradient(from var(--st-angle),transparent 0 48%,rgb(147 51 234/.2) 58%,var(--st-violet) 78%,var(--st-fuchsia) 91%,#fff 99.4%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity var(--st-dur);animation:st-spin 4s linear infinite}
+.pf-service__spot{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity var(--st-dur);background:radial-gradient(22rem circle at var(--mx,50%) var(--my,0%),rgba(147,51,234,.18),rgba(217,70,239,.06) 40%,transparent 70%)}
+.pf-service > *:not(.pf-service__spot){position:relative;z-index:1}
+.pf-service:hover{translate:0 -.5rem;border-color:transparent;box-shadow:var(--st-sh-card-hover),0 0 40px -12px rgba(147,51,234,.55)}
+.pf-service:hover::before,.pf-service:hover .pf-service__spot{opacity:1}
+.pf-service .st-plan__head{margin-bottom:1rem}
+.pf-service .st-plan__icon{font-size:1rem;transition:background var(--st-dur),color var(--st-dur),border-color var(--st-dur),transform .45s var(--st-ease-spring)}
+.pf-service:hover .st-plan__icon{background:var(--st-violet-ui);border-color:transparent;color:#fff;transform:rotate(-8deg) scale(1.08)}
+.pf-service .st-plan__head h3{margin:0}
+.pf-service > p{margin:0 0 1.5rem;color:var(--st-text-dim);transition:color var(--st-dur)}
+.pf-service:hover > p{color:var(--st-text-soft)}
+.pf-service.st-plan ul{margin:0 0 1.75rem;gap:.75rem;font-size:.8125rem}
+.pf-service.st-plan li::before{display:grid;place-items:center;flex:none;width:1.125rem;height:1.125rem;margin-top:.0625rem;border-radius:50%;font-size:.625rem;transition:background var(--st-dur),color var(--st-dur)}
+.pf-service:hover.st-plan li{color:var(--st-text-soft)}
+.pf-service:hover.st-plan li::before{background:var(--st-violet-ui);color:#fff}
+.pf-service .st-link{margin-top:auto;display:inline-flex;align-items:center;gap:.4rem;font-size:.8125rem;transition:gap var(--st-dur),color var(--st-dur)}
+.pf-service:hover .st-link{gap:.75rem;color:#fff}
+.pf-service__icon{display:grid;place-items:center;width:3rem;height:3rem;border-radius:var(--st-r-lg);border:1px solid var(--st-border-strong);background:var(--st-surface);color:var(--st-brand-400);font-size:1.25rem;margin-bottom:1.25rem}
+.pf-service h3{margin-bottom:.75rem}
+
+/* STATS */
+.pf-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem}
+.pf-stat{position:relative;isolation:isolate;overflow:hidden;padding:2rem 1.75rem 1.75rem;border-radius:var(--st-r-xl);border:1px solid rgba(255,255,255,.09);background:rgba(18,18,22,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;flex-direction:column;gap:.75rem;transition:translate .45s var(--st-ease-spring),border-color var(--st-dur),box-shadow .45s}
+.pf-stat::before{content:"";position:absolute;inset:0;z-index:2;padding:1px;border-radius:inherit;pointer-events:none;background:conic-gradient(from var(--st-angle),transparent 0 52%,rgba(255,202,40,.25) 70%,var(--st-brand-300) 88%,#fff 99.4%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity var(--st-dur);animation:st-spin 4.5s linear infinite}
+.pf-stat__spot{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity var(--st-dur);background:radial-gradient(18rem circle at var(--mx,50%) var(--my,50%),rgba(255,202,40,.18),rgba(251,146,60,.06) 45%,transparent 70%)}
+.pf-stat > *:not(.pf-stat__spot){position:relative;z-index:1}
+.pf-stat:hover{translate:0 -.5rem;border-color:transparent;box-shadow:var(--st-sh-card-hover),0 0 35px -10px rgba(255,202,40,.35)}
+.pf-stat:hover::before,.pf-stat:hover .pf-stat__spot{opacity:1}
+.pf-stat__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem}
+.pf-stat__header .st-eyebrow{font-size:.6875rem;letter-spacing:.1em;color:var(--st-text-dim)}
+.pf-stat__badge{font-size:.6875rem;padding:.2rem .55rem;border-radius:9999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--st-brand-300);font-weight:600;display:inline-flex;align-items:center;gap:.3rem}
+.pf-stat .st-number{font:700 clamp(2.2rem,3.8vw,2.75rem)/1 var(--st-font-display);letter-spacing:-.03em;background:linear-gradient(135deg,#ffffff 45%,var(--st-brand-300) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0}
+.pf-stat p{margin:0;color:var(--st-text-dim);font-size:.85rem;line-height:1.4;transition:color var(--st-dur)}
+.pf-stat:hover p{color:var(--st-text-soft)}
+
+/* Featured Stat (Card 4: 100% Diferencial) */
+.pf-stat--featured{background:radial-gradient(120% 120% at 0% 0%,rgba(255,202,40,.14) 0%,rgba(147,51,234,.1) 50%,rgba(18,18,24,.85) 100%);border-color:rgba(255,202,40,.35);box-shadow:0 14px 40px -10px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.15)}
+.pf-stat--featured:hover{border-color:transparent;box-shadow:var(--st-sh-card-hover),0 0 45px -8px rgba(255,202,40,.45)}
+.pf-stat--featured .pf-stat__badge{background:rgba(255,202,40,.2);border-color:rgba(255,202,40,.45);color:#fff;box-shadow:0 0 10px rgba(255,202,40,.3)}
+
+/* PROJECTS GRID & CARDS */
+.pf-projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(22rem,1fr));gap:2rem}
+.pf-project{position:relative;overflow:hidden;border-radius:var(--st-r-xl);border:1px solid var(--st-border);background:var(--st-surface);cursor:pointer;transition:transform .4s var(--st-ease-card),box-shadow .4s,border-color .4s;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.pf-project:hover{transform:translateY(-.5rem);box-shadow:0 20px 40px -15px rgba(0,0,0,0.7),0 0 25px -5px rgba(255,202,40,0.18);border-color:rgba(255,202,40,0.45)}
+.pf-project__thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0d0f14}
+.pf-project__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--st-ease-card),filter .6s;filter:brightness(.92)}
+.pf-project:hover .pf-project__thumb img{transform:scale(1.06);filter:brightness(1.04)}
+.pf-project__tag-badge{position:absolute;top:1rem;left:1rem;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(12,14,18,0.78);border:1px solid rgba(255,255,255,0.14);color:#fff;font-size:0.7rem;padding:0.25rem 0.65rem;border-radius:9999px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
+.pf-project__screens-badge{position:absolute;bottom:0.85rem;right:0.85rem;z-index:2;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.12);color:var(--st-accent);font-size:0.75rem;padding:0.22rem 0.6rem;border-radius:var(--st-r-sm);font-weight:600;display:flex;align-items:center;gap:0.35rem}
+.pf-project__info{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;flex:1;gap:0.4rem}
+.pf-project__info .st-eyebrow{font-size:0.75rem;color:var(--st-text-muted)}
+.pf-project__info h3{margin:0;font-size:1.35rem;color:#fff;font-weight:600;line-height:1.3}
+.pf-project__footer{margin-top:auto;padding-top:1rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06)}
+.pf-project__cta-link{font-size:0.85rem;color:var(--st-accent);font-weight:500;display:inline-flex;align-items:center;gap:0.35rem;transition:gap .2s,color .2s}
+.pf-project:hover .pf-project__cta-link{gap:0.6rem;color:#fff}
+
+/* ═══════ PROJECT DETAIL MODAL (STORIELLE CASE STUDY VIEWER) ═══════ */
+.pf-modal{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:1.5rem}
+.pf-modal.open{display:flex}
+.pf-modal__backdrop{position:absolute;inset:0;background:rgba(5,6,8,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pf-modal__panel{position:relative;width:100%;max-width:68rem;height:94vh;max-height:94vh;display:flex;flex-direction:column;background:#0b0c10;border:1px solid rgba(255,202,40,0.22);border-radius:var(--st-r-2xl);box-shadow:0 30px 100px -20px rgba(0,0,0,0.92),0 0 60px -15px rgba(255,202,40,0.2);animation:st-modal-in .4s cubic-bezier(0.16,1,0.3,1) both;overflow:hidden;z-index:1}
+.pf-modal__bar{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.25rem 2rem;background:rgba(14,15,20,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0}
+.pf-modal__bar-meta{display:flex;flex-direction:column;gap:0.2rem}
+.pf-modal__bar-meta-top{display:flex;align-items:center;gap:0.75rem}
+.pf-modal__bar-meta h3{margin:0;font-size:1.45rem;color:#fff;font-weight:700;letter-spacing:-0.02em}
+.pf-modal__bar-nav{display:flex;align-items:center;gap:0.75rem}
+.pf-modal__body{padding:2.5rem 2rem 4rem;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;background:#08090c}
+.pf-modal__body::-webkit-scrollbar{width:8px}
+.pf-modal__body::-webkit-scrollbar-track{background:rgba(255,255,255,0.02)}
+.pf-modal__body::-webkit-scrollbar-thumb{background:rgba(255,202,40,0.3);border-radius:4px}
+.pf-modal__body::-webkit-scrollbar-thumb:hover{background:rgba(255,202,40,0.6)}
+.pf-modal__gallery{display:flex;flex-direction:column;gap:1.75rem;max-width:58rem;margin:0 auto;width:100%}
+.pf-modal__img-card{position:relative;border-radius:var(--st-r-xl);overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#101218;box-shadow:0 15px 45px -10px rgba(0,0,0,0.6);transition:border-color .3s}
+.pf-modal__img-card:hover{border-color:rgba(255,202,40,0.35)}
+.pf-modal__img-card img{width:100%;height:auto;display:block}
+.pf-modal__bottom-cta{margin-top:3.5rem;padding:3rem 2rem;border-radius:var(--st-r-2xl);background:radial-gradient(circle at center,rgba(255,202,40,0.09) 0%,rgba(15,16,22,0.96) 70%);border:1px solid rgba(255,202,40,0.28);text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.25rem;max-width:58rem;margin-left:auto;margin-right:auto;box-shadow:0 20px 50px -15px rgba(0,0,0,0.7)}
+body.modal-open{overflow:hidden}
+
+/* TABS FILTER */
+.pf-filter{display:flex;justify-content:center;margin-bottom:3rem}
+
+/* ABOUT */
+.pf-about{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.pf-about__text{display:grid;gap:1.5rem}
+.pf-about__skills{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.5rem}
+
+/* TESTIMONIAL */
+.pf-testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));gap:2rem}
+
+/* CONTACT */
+.pf-contact{max-width:36rem;margin:0 auto}
+.pf-contact__form{display:grid;gap:1.25rem;margin-top:2rem}
+.pf-contact__row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+
+/* FOOTER */
+.pf-footer{padding:3rem 0;border-top:1px solid var(--st-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.pf-footer__socials{display:flex;gap:.75rem}
+
+/* RESPONSIVE */
+@media(max-width:1080px){
+  .pf-story-tracker{display:none}
+}
+
+@media(max-width:960px){
+  .pf-hero{padding:6.5rem 0 3.5rem}
+  .pf-studio__grid{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem}
+  .pf-portal{order:-1}
+  .pf-portal__orbit-inner{width:260px;height:310px}
+  .pf-figma-cursor{top:4%;right:-.5rem}
+  .pf-nav__links{display:none}
+  .pf-nav__links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(5,5,5,.95);backdrop-filter:blur(16px);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--st-border)}
+  .pf-nav__mobile{display:inline-flex}
+  .pf-stats{grid-template-columns:repeat(2,1fr)}
+  .pf-services{grid-template-columns:repeat(2,1fr)}
+  .pf-services > .pf-service:nth-child(5){grid-column:auto}
+  .pf-about{grid-template-columns:1fr}
+  .pf-contact__row{grid-template-columns:1fr}
+  .pf-projects{grid-template-columns:1fr}
+  .pf-footer{flex-direction:column;text-align:center}
+}
+
+@media(max-width:540px){
+  .pf-hero__actions{flex-direction:column;width:100%}
+  .st-frame{width:100%}
+  .st-frame button{width:100%}
+  .pf-hero-secondary{width:100%;justify-content:center}
+  .pf-portal__orbit-inner{width:220px;height:260px}
+  .pf-stats{grid-template-columns:1fr}
+  .pf-services{grid-template-columns:1fr}
+  .pf-services > .pf-service:nth-child(5){grid-column:auto}
+}
+</style>
+</head>
+<body class="st-body">
+<div class="st-grid-bg"></div>
+<div class="pf-story-progress" id="storyProgress"></div>
+
+<!-- ═══════ CUSTOM MOUSE GLOW FOLLOWER ═══════ -->
+<div class="pf-cursor-dot" id="cursorDot"></div>
+<div class="pf-cursor-ring" id="cursorRing"></div>
+
+<!-- ═══════ FLOATING STORY CHAPTER TRACKER ═══════ -->
+<aside class="pf-story-tracker" id="storyTracker" aria-label="Navegação Rápida">
+  <div class="pf-story-dot is-active" data-target="hero"><span>Início · Apresentação</span></div>
+  <div class="pf-story-dot" data-target="services"><span>Soluções · O que faço</span></div>
+  <div class="pf-story-dot" data-target="projects"><span>Portfólio · 15 Projetos</span></div>
+  <div class="pf-story-dot" data-target="about"><span>Processo · Como trabalho</span></div>
+  <div class="pf-story-dot" data-target="testimonials"><span>Resultados · Depoimentos</span></div>
+  <div class="pf-story-dot" data-target="faq"><span>Dúvidas · Perguntas</span></div>
+  <div class="pf-story-dot" data-target="contact"><span>Contato · Orçamento</span></div>
+</aside>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<nav class="pf-nav" id="navbar">
+  <div class="pf-nav__inner">
+    <a href="#" class="st-brand" style="display:inline-flex;align-items:center;text-decoration:none">
+      <img src="guilherme-logo.png" alt="GSC Tech - Guilherme Sanz" style="height:32px;width:auto;display:block">
+    </a>
+    <div class="pf-nav__links" id="navLinks">
+      <a href="#services" class="st-navlink">Soluções</a>
+      <a href="#projects" class="st-navlink">Projetos</a>
+      <a href="#about" class="st-navlink">Como Trabalho</a>
+      <a href="#testimonials" class="st-navlink">Resultados</a>
+      <a href="#contact" class="st-navlink">Contato</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <a href="#contact" class="st-cta">Solicitar Orçamento</a>
+      <button class="pf-nav__mobile st-icon-btn" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════ INNOVATIVE HERO: CREATIVE ENGINE STUDIO ═══════ -->
+<section class="pf-hero" id="hero">
+  <div class="pf-glow pf-glow--violet"></div>
+  <div class="pf-glow pf-glow--orange"></div>
+  
+  <div class="st-container">
+    <div class="pf-hero__header st-fade-up">
+      <div class="pf-chapter-cue">
+        <span class="pf-chapter-num">Apresentação</span>
+        <span class="pf-chapter-line"></span>
+        <span class="pf-chapter-title">Design &amp; Tecnologia de Ponta</span>
+      </div>
+
+      <div class="pf-hero__badge">
+        <i></i>
+        <span>PRODUCT DESIGNER &amp; FULLSTACK DEVELOPER</span>
+      </div>
+
+      <h1 class="pf-hero__title">
+        Design que gera autoridade &amp;<br>
+        <span>Interfaces que vendem</span>
+      </h1>
+
+      <p class="st-lead" style="max-width:39rem">
+        Sou <strong>Guilherme Sanz</strong>. Ajudo empresas e startups a transformarem ideias em sites, aplicativos e marcas de alto padrão — aliando visual impecável a desenvolvimento rápido, seguro e focado em atrair clientes.
+      </p>
+
+      <!-- HERO ACTIONS WITH ANIMATED STORIELLER FRAME -->
+      <div class="pf-hero__actions">
+        <a href="#projects" class="st-frame">
+          <button class="st-cta pf-hero-cta">
+            <span>Ver Casos de Sucesso (15)</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </a>
+        <a href="#contact" class="st-btn st-btn--pill st-btn--outline pf-hero-secondary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Fazer Orçamento Rápido</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- THE INNOVATIVE LIVING CANVAS STUDIO (STORIELLE WINDOW) -->
+    <div class="st-window pf-studio st-fade-up st-delay-1">
+      <div class="st-window__bar">
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <i></i><i></i><i></i>
+          <span style="font-family:var(--st-font-ui);font-size:12px;color:var(--st-text-dim)">guilherme.sanz / creative-studio / live-workspace</span>
+        </div>
+        <div class="st-badge" style="font-size:10px;padding:.2rem .65rem;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08);color:#10b981">
+          <i class="st-badge__dot" style="background:#10b981"></i> ACTIVE ENGINE
+        </div>
+      </div>
+
+      <div class="pf-studio__grid">
+        
+        <!-- LEFT BENTO: DESIGN ARCHITECTURE -->
+        <div class="pf-bento st-glass">
+          <div class="pf-bento__head">
+            <h4>✦ UX/UI de Alta Conversão</h4>
+            <span class="st-tag">Figma Pro</span>
+          </div>
+          <p>Telas modernas, intuitivas e pensadas para reter usuários e aumentar suas vendas. Da ideia inicial ao protótipo pronto para validar.</p>
+          
+          <a href="#projects" class="st-provider" style="padding:.6rem .85rem;text-decoration:none">
+            <span class="st-provider__icon" style="width:2.25rem;height:2.25rem;font-size:.9rem;color:#fcd34d">★</span>
+            <div>
+              <b style="font-size:12px">Ver 15 Casos Reais</b>
+              <small style="font-size:11px">Interfaces que geram resultados</small>
+            </div>
+          </a>
+
+          <div class="pf-bento__tags">
+            <span>Design que Vende</span>
+            <span>Prototipagem Ágil</span>
+            <span>Experiência Fluida</span>
+            <span>Design System</span>
+          </div>
+        </div>
+
+        <!-- CENTER PORTAL: GUILHERME SANZ ORBIT -->
+        <div class="pf-portal">
+          <div class="pf-portal__glow"></div>
+          
+          <div class="pf-portal__orbit">
+            <div class="pf-portal__orbit-inner">
+              <img src="guilherme-isolated.png" alt="Guilherme Sanz" class="pf-portal__img" loading="eager">
+            </div>
+            
+            <!-- REAL FIGMA MULTIPLAYER CURSOR (OUTSIDE THE INNER CROP FRAME) -->
+            <div class="pf-figma-cursor">
+              <svg class="pf-figma-pointer" width="18" height="22" viewBox="0 0 18 22" fill="none">
+                <path d="M0.5 0.5V17.5L5 13.5L9 20.5L12 19L8 12H13.5L0.5 0.5Z" fill="#FFCA28" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              <div class="pf-figma-tag">Guilherme Sanz</div>
+            </div>
+          </div>
+
+          <div class="st-badge pf-portal__status">
+            <i class="st-badge__dot"></i> DISPONÍVEL PARA NOVOS PROJETOS
+          </div>
+        </div>
+
+        <!-- RIGHT BENTO: ENGINEERING & CODE -->
+        <div class="pf-bento st-glass">
+          <div class="pf-bento__head">
+            <h4>⟨/⟩ Desenvolvimento Web &amp; Apps</h4>
+            <span class="st-tag" style="background:#0284c7;color:#fff">Next.js</span>
+          </div>
+          <p>Sites velozes, painéis administrativos e aplicativos seguros e responsivos, construídos com código limpo e prontos para escalar.</p>
+          
+          <div style="display:grid;gap:.75rem;padding:.5rem 0">
+            <label class="st-row" style="font-size:12px">
+              <span>Carregamento Ultra Rápido</span>
+              <input type="checkbox" class="st-switch" checked disabled>
+            </label>
+            <label class="st-row" style="font-size:12px">
+              <span>100% Adaptável para Celular &amp; PC</span>
+              <input type="checkbox" class="st-switch" checked disabled>
+            </label>
+            <label class="st-row" style="font-size:12px">
+              <span>Código Moderno &amp; Seguro</span>
+              <input type="checkbox" class="st-switch" checked disabled>
+            </label>
+          </div>
+
+          <div class="pf-bento__tags">
+            <span>React</span>
+            <span>Next.js</span>
+            <span>TypeScript</span>
+            <span>Tailwind</span>
+            <span>Apps Mobile</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- METRICS STRIP UNDER STUDIO -->
+    <div class="pf-hero__metrics st-fade-up st-delay-2" style="margin:2.5rem auto 0;border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem">
+      <div class="pf-hero__metric">
+        <strong>15</strong>
+        <span>Casos Entregues</span>
+      </div>
+      <div class="pf-hero__metric-sep"></div>
+      <div class="pf-hero__metric">
+        <strong>100%</strong>
+        <span>Foco em Conversão</span>
+      </div>
+      <div class="pf-hero__metric-sep"></div>
+      <div class="pf-hero__metric">
+        <strong>Full-Stack</strong>
+        <span>Do Design ao Código</span>
+      </div>
+      <div class="pf-hero__metric-sep"></div>
+      <div class="pf-hero__metric">
+        <strong>+190k</strong>
+        <span>Pessoas Impactadas</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STORY BRIDGE: PROLOGUE -> CHAPTER I -->
+<div class="st-container">
+  <div class="pf-story-bridge st-fade-up">
+    <blockquote>"Design de verdade não serve só para deixar bonito: ele reduz custos, atrai clientes qualificados e gera lucro para o seu negócio."</blockquote>
+    <span class="st-caption" style="display:block;margin-top:.75rem">Guilherme Sanz — Designer &amp; Desenvolvedor</span>
+  </div>
+  <hr class="st-divider-line">
+</div>
+
+<!-- ═══════ CHAPTER I: SERVICES ═══════ -->
+<section class="pf-section" id="services">
+  <div class="st-container">
+    <div class="pf-section__header st-fade-up">
+      <div class="pf-chapter-cue">
+        <span class="pf-chapter-num">Soluções</span>
+        <span class="pf-chapter-line"></span>
+        <span class="pf-chapter-title">O Que Faço Pela Sua Empresa</span>
+      </div>
+      <h2 class="st-h2">Soluções Completas Para o Seu Negócio Crescer</h2>
+      <p class="st-lead">Da estratégia visual ao código pronto para faturar: você tem um parceiro completo para tirar projetos do papel.</p>
+    </div>
+
+    <div class="pf-services">
+      <article class="st-glass st-plan pf-service st-fade-up">
+        <span class="pf-service__spot"></span>
+        <div class="st-plan__head"><span class="st-plan__icon">✦</span><h3 class="st-h4">UX &amp; UI Design</h3></div>
+        <p class="st-small">Telas intuitivas e elegantes que facilitam a vida do seu cliente e aumentam o faturamento.</p>
+        <ul><li>Protótipo navegável no Figma</li><li>Design System completo</li><li>Foco em conversão</li></ul>
+        <a href="#contact" class="st-link">Quero esse serviço →</a>
+      </article>
+      <article class="st-glass st-plan pf-service st-fade-up st-delay-1">
+        <span class="pf-service__spot"></span>
+        <div class="st-plan__head"><span class="st-plan__icon">⟨/⟩</span><h3 class="st-h4">Sites &amp; Landing Pages</h3></div>
+        <p class="st-small">Páginas rápidas e persuasivas, feitas para transformar visitantes em clientes.</p>
+        <ul><li>Carregamento ultra rápido</li><li>Perfeito no celular</li><li>Pronto para anúncios e SEO</li></ul>
+        <a href="#contact" class="st-link">Quero esse serviço →</a>
+      </article>
+      <article class="st-glass st-plan pf-service st-fade-up st-delay-2">
+        <span class="pf-service__spot"></span>
+        <div class="st-plan__head"><span class="st-plan__icon">▣</span><h3 class="st-h4">Apps &amp; Sistemas</h3></div>
+        <p class="st-small">Dashboards, plataformas SaaS e aplicativos fáceis de usar no dia a dia da sua equipe.</p>
+        <ul><li>Painéis administrativos</li><li>Apps iOS e Android</li><li>Pronto para crescer</li></ul>
+        <a href="#contact" class="st-link">Quero esse serviço →</a>
+      </article>
+      <article class="st-glass st-plan pf-service st-fade-up st-delay-3">
+        <span class="pf-service__spot"></span>
+        <div class="st-plan__head"><span class="st-plan__icon">▶</span><h3 class="st-h4">Vídeo &amp; Motion</h3></div>
+        <p class="st-small">Edições e animações que prendem a atenção nas redes sociais e nos anúncios.</p>
+        <ul><li>Reels e anúncios</li><li>Vídeos institucionais</li><li>Animações de marca</li></ul>
+        <a href="#contact" class="st-link">Quero esse serviço →</a>
+      </article>
+      <article class="st-glass st-plan pf-service st-fade-up">
+        <span class="pf-service__spot"></span>
+        <div class="st-plan__head"><span class="st-plan__icon">◆</span><h3 class="st-h4">Design Gráfico</h3></div>
+        <p class="st-small">Apresentações, propostas e materiais que passam autoridade logo de cara.</p>
+        <ul><li>Apresentações comerciais</li><li>Posts e banners</li><li>Materiais impressos</li></ul>
+        <a href="#contact" class="st-link">Quero esse serviço →</a>
+      </article>
+      <article class="st-glass st-plan pf-service st-fade-up st-delay-1">
+        <span class="pf-service__spot"></span>
+        <div class="st-plan__head"><span class="st-plan__icon">★</span><h3 class="st-h4">Branding &amp; Marca</h3></div>
+        <p class="st-small">Marcas fortes e modernas que transmitem confiança e se destacam da concorrência.</p>
+        <ul><li>Logotipo e identidade</li><li>Manual da marca</li><li>Rebranding completo</li></ul>
+        <a href="#contact" class="st-link">Quero esse serviço →</a>
+      </article>
+    </div>
+
+    <!-- STATS -->
+    <div class="pf-stats">
+      <div class="st-glass st-stat pf-stat st-fade-up">
+        <span class="pf-stat__spot"></span>
+        <div class="pf-stat__header">
+          <span class="st-eyebrow">PORTFÓLIO</span>
+          <span class="pf-stat__badge">✦ Seleção</span>
+        </div>
+        <h2 class="st-number">15</h2>
+        <p class="st-small">Casos de Estudo Reais e Verificados</p>
+      </div>
+
+      <div class="st-glass st-stat pf-stat st-fade-up st-delay-1">
+        <span class="pf-stat__spot"></span>
+        <div class="pf-stat__header">
+          <span class="st-eyebrow">ALCANCE</span>
+          <span class="pf-stat__badge">▲ Behance</span>
+        </div>
+        <h2 class="st-number">+190k</h2>
+        <p class="st-small">Visualizações Orgânicas nos Projetos</p>
+      </div>
+
+      <div class="st-glass st-stat pf-stat st-fade-up st-delay-2">
+        <span class="pf-stat__spot"></span>
+        <div class="pf-stat__header">
+          <span class="st-eyebrow">AVALIAÇÕES</span>
+          <span class="pf-stat__badge">★ Feedback</span>
+        </div>
+        <h2 class="st-number">+5.5k</h2>
+        <p class="st-small">Apreciações Positivas da Comunidade</p>
+      </div>
+
+      <div class="st-glass st-stat pf-stat pf-stat--featured st-fade-up st-delay-3">
+        <span class="pf-stat__spot"></span>
+        <div class="pf-stat__header">
+          <span class="st-eyebrow" style="color:var(--st-brand-300)">DIFERENCIAL</span>
+          <span class="pf-stat__badge">● Garantia</span>
+        </div>
+        <h2 class="st-number">100%</h2>
+        <p class="st-small">Design e Código Integrados sem Terceirização</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY BRIDGE: CHAPTER I -> CHAPTER II -->
+<div class="st-container">
+  <div class="pf-story-bridge st-fade-up">
+    <blockquote>"A primeira impressão da sua empresa no digital define se o cliente compra ou vai direto para o concorrente."</blockquote>
+    <span class="st-caption" style="display:block;margin-top:.75rem">Foco em Credibilidade &amp; Vendas</span>
+  </div>
+  <hr class="st-divider-line">
+</div>
+
+<!-- ═══════ CHAPTER II: PROJECTS (THE ANTHOLOGY) ═══════ -->
+<section class="pf-section" id="projects">
+  <div class="st-container">
+    <div class="pf-section__header st-fade-up">
+      <div class="pf-chapter-cue">
+        <span class="pf-chapter-num">Portfólio</span>
+        <span class="pf-chapter-line"></span>
+        <span class="pf-chapter-title">Casos de Sucesso Reais</span>
+      </div>
+      <h2 class="st-h2">15 Projetos Desenvolvidos na Prática</h2>
+      <p class="st-lead">Clique em qualquer projeto abaixo para navegar por todas as telas e detalhes do estudo de caso.</p>
+    </div>
+
+    <div class="pf-projects" id="projectsGrid">
+      <!-- Dynamic Storielle Project Cards injected via JavaScript -->
+    </div>
+  </div>
+</section>
+
+<div class="st-container"><hr class="st-divider-line"></div>
+
+<!-- ═══════ CHAPTER III: ABOUT & METHOD ═══════ -->
+<section class="pf-section" id="about">
+  <div class="st-container">
+    <div class="pf-about">
+      <div class="pf-about__text st-fade-up">
+        <div class="pf-chapter-cue">
+          <span class="pf-chapter-num">Como Trabalho</span>
+          <span class="pf-chapter-line"></span>
+          <span class="pf-chapter-title">Parceria Direta &amp; Sem Burocracia</span>
+        </div>
+        <h2 class="st-h2">Contato Direto Com Quem Realmente Faz</h2>
+        <p class="st-text" style="color:var(--st-text-soft)">
+          Sem agências cheias de reuniões demoradas ou intermediários. Você conversa diretamente com quem desenha cada tela e programa cada detalhe da sua aplicação.
+        </p>
+        <p class="st-text">
+          Uno a agilidade de prototipagem no Figma à tecnologia de código do React e Next.js. O resultado é um produto moderno, entregue com rapidez e pronto para encantar seu cliente e colocar dinheiro no caixa da sua empresa.
+        </p>
+        <div>
+          <p class="st-small" style="color:#fff;font-weight:500;margin-bottom:.75rem">Tecnologias &amp; Habilidades</p>
+          <div class="pf-about__skills">
+            <span class="st-badge">Figma Pro</span>
+            <span class="st-badge">Design Systems</span>
+            <span class="st-badge">React &amp; Next.js</span>
+            <span class="st-badge">TypeScript</span>
+            <span class="st-badge">Tailwind CSS</span>
+            <span class="st-badge">After Effects</span>
+            <span class="st-badge">Vídeo &amp; Motion</span>
+            <span class="st-badge">Branding</span>
+            <span class="st-badge">Aplicativos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUOTE & 4 ACTS PROCESS -->
+      <div class="st-fade-up st-delay-2" style="display:grid;gap:2rem">
+        <figure class="st-ring-card" style="margin:0">
+          <blockquote class="st-quote">"O melhor design é aquele que o seu cliente entende em 3 segundos e sente segurança para comprar."</blockquote>
+          <figcaption style="margin-top:1.5rem">
+            <p class="st-label">Guilherme Sanz</p>
+            <p class="st-small">Product Designer &amp; Dev</p>
+          </figcaption>
+        </figure>
+
+        <div class="st-glass st-glass--hover" style="padding:2rem">
+          <h3 class="st-h4" style="margin-bottom:1.25rem">Como Funciona o Nosso Projeto (4 Etapas)</h3>
+          <div style="display:grid;gap:1.1rem">
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="pf-service__icon" style="flex:none;width:2.25rem;height:2.25rem;font-size:.75rem">01</div>
+              <div>
+                <strong style="display:block;font:600 .875rem var(--st-font-display);color:#fff">Etapa 1 · Entendimento &amp; Estratégia</strong>
+                <span class="st-caption">Mapeamos seu objetivo de negócio, público-alvo e o que é essencial para o lançamento.</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="pf-service__icon" style="flex:none;width:2.25rem;height:2.25rem;font-size:.75rem">02</div>
+              <div>
+                <strong style="display:block;font:600 .875rem var(--st-font-display);color:#fff">Etapa 2 · Protótipo &amp; Validação</strong>
+                <span class="st-caption">Você clica e testa os fluxos no Figma antes de qualquer linha de código ser escrita.</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="pf-service__icon" style="flex:none;width:2.25rem;height:2.25rem;font-size:.75rem">03</div>
+              <div>
+                <strong style="display:block;font:600 .875rem var(--st-font-display);color:#fff">Etapa 3 · Design Visual de Impacto</strong>
+                <span class="st-caption">Criação da identidade visual marcante, cores, componentes e telas finais em alta resolução.</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div class="pf-service__icon" style="flex:none;width:2.25rem;height:2.25rem;font-size:.75rem">04</div>
+              <div>
+                <strong style="display:block;font:600 .875rem var(--st-font-display);color:#fff">Etapa 4 · Desenvolvimento &amp; Publicação</strong>
+                <span class="st-caption">Construção com código veloz, testes em celular e computador, e entrega 100% pronta para uso.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="st-container"><hr class="st-divider-line"></div>
+
+<!-- ═══════ CHAPTER IV: TESTIMONIALS (MARKET ECHOES) ═══════ -->
+<section class="pf-section" id="testimonials">
+  <div class="st-container">
+    <div class="pf-section__header st-fade-up">
+      <div class="pf-chapter-cue">
+        <span class="pf-chapter-num">Depoimentos</span>
+        <span class="pf-chapter-line"></span>
+        <span class="pf-chapter-title">Resultados Comprovados</span>
+      </div>
+      <h2 class="st-h2">O Que Quem Já Trabalhou Comigo Diz</h2>
+      <p class="st-lead">A satisfação e o retorno financeiro dos clientes são o maior indicador de sucesso de cada projeto.</p>
+    </div>
+    <div class="pf-testimonials">
+      <figure class="st-ring-card st-fade-up" style="margin:0">
+        <blockquote class="st-quote" style="font-size:clamp(1.125rem,2vw,1.5rem)">"O Guilherme entregou muito além do esperado. O design ficou incrível e a página começou a converter leads no mesmo dia do lançamento."</blockquote>
+        <figcaption style="margin-top:1.5rem">
+          <p class="st-label">Carlos M.</p>
+          <p class="st-small">Fundador &amp; CEO, Tech Startup</p>
+        </figcaption>
+      </figure>
+      <figure class="st-ring-card st-fade-up st-delay-1" style="margin:0">
+        <blockquote class="st-quote" style="font-size:clamp(1.125rem,2vw,1.5rem)">"A nova marca e o site elevaram nosso posicionamento no mercado. Hoje fechamos contratos maiores porque os clientes sentem total confiança."</blockquote>
+        <figcaption style="margin-top:1.5rem">
+          <p class="st-label">Ana R.</p>
+          <p class="st-small">Diretora Comercial &amp; Marketing</p>
+        </figcaption>
+      </figure>
+      <figure class="st-ring-card st-fade-up st-delay-2" style="margin:0">
+        <blockquote class="st-quote" style="font-size:clamp(1.125rem,2vw,1.5rem)">"Comunicação direta, prazos cumpridos à risca e um aplicativo intuitivo que nossos usuários elogiam todos os dias. Super recomendo."</blockquote>
+        <figcaption style="margin-top:1.5rem">
+          <p class="st-label">Pedro L.</p>
+          <p class="st-small">Gerente de Produto</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="st-container"><hr class="st-divider-line"></div>
+
+<!-- ═══════ APPENDIX: FAQ ═══════ -->
+<section class="pf-section" id="faq">
+  <div class="st-container">
+    <div class="pf-section__header st-fade-up">
+      <div class="pf-chapter-cue">
+        <span class="pf-chapter-num">Perguntas Frequentes</span>
+        <span class="pf-chapter-line"></span>
+        <span class="pf-chapter-title">Tire Suas Dúvidas</span>
+      </div>
+      <h2 class="st-h2">Tudo Claro Antes de Começarmos</h2>
+      <p class="st-lead">Respostas práticas e transparentes sobre prazos, etapas e entregas.</p>
+    </div>
+    <div style="max-width:42rem;margin:0 auto;display:grid;gap:1rem">
+      <details class="st-faq st-fade-up" open>
+        <summary>Quais tipos de projeto você atende?</summary>
+        <div class="st-faq__body">Atendo desde landing pages de alta conversão e sites institucionais até sistemas web completos, dashboards, aplicativos mobile, marcas e vídeos promocionais. Seja uma demanda pontual ou uma parceria contínua para sua empresa.</div>
+      </details>
+      <details class="st-faq st-fade-up st-delay-1">
+        <summary>Qual o prazo médio de entrega?</summary>
+        <div class="st-faq__body">Depende do escopo combinado: landing pages e sites rápidos levam em média de 3 a 7 dias úteis. Projetos maiores de sistemas e aplicativos variam de 2 a 4 semanas. Você sempre recebe um cronograma transparente no início.</div>
+      </details>
+      <details class="st-faq st-fade-up st-delay-2">
+        <summary>Como acompanho o projeto no dia a dia?</summary>
+        <div class="st-faq__body">Você tem acesso direto aos arquivos no Figma e a links de teste em tempo real para ver o código funcionando. Alinhamos tudo de forma rápida por WhatsApp, Google Meet ou Slack, sem demoras nas respostas.</div>
+      </details>
+      <details class="st-faq st-fade-up st-delay-3">
+        <summary>Como funcionam as formas de pagamento?</summary>
+        <div class="st-faq__body">Trabalhamos com condições transparentes: entrada no início do projeto e saldo após a aprovação e entrega final. Pagamentos facilitados via Pix, transferência ou cartão com emissão de nota fiscal.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="st-container"><hr class="st-divider-line"></div>
+
+<!-- ═══════ EPILOGUE: CONTACT ═══════ -->
+<section class="pf-section" id="contact">
+  <div class="st-container">
+    <div class="pf-contact">
+      <div class="pf-section__header st-fade-up" style="margin-bottom:0">
+        <div class="pf-chapter-cue">
+          <span class="pf-chapter-num">Contato</span>
+          <span class="pf-chapter-line"></span>
+          <span class="pf-chapter-title">Fale Comigo Diretamente</span>
+        </div>
+        <h2 class="st-h2">Vamos Tirar o Seu Projeto do Papel?</h2>
+        <p class="st-lead">Envie uma mensagem contando um pouco sobre sua ideia. Respondo com uma proposta prática em poucas horas.</p>
+      </div>
+
+      <div class="st-modal st-fade-up st-delay-1" style="width:100%;max-width:100%;margin-top:2rem">
+        <div class="st-modal__body">
+          <form class="pf-contact__form" onsubmit="return false">
+            <div class="pf-contact__row">
+              <div class="st-field">
+                <label class="st-label">Seu Nome / Nome da Empresa</label>
+                <input class="st-input" type="text" placeholder="Ex: Roberto Silva">
+              </div>
+              <div class="st-field">
+                <label class="st-label">Seu Melhor E-mail ou WhatsApp</label>
+                <input class="st-input" type="email" placeholder="contato@empresa.com">
+              </div>
+            </div>
+            <div class="st-field">
+              <label class="st-label">Qual é a sua necessidade principal?</label>
+              <div class="st-tabs" style="margin-top:.25rem">
+                <button type="button" aria-selected="true" onclick="selectTab(this)">UX/UI Design</button>
+                <button type="button" aria-selected="false" onclick="selectTab(this)">Site ou Landing Page</button>
+                <button type="button" aria-selected="false" onclick="selectTab(this)">Aplicativo / Sistema</button>
+                <button type="button" aria-selected="false" onclick="selectTab(this)">Branding / Marca</button>
+              </div>
+            </div>
+            <div class="st-field">
+              <label class="st-label">Conte um resumo do que você precisa</label>
+              <textarea class="st-input" rows="4" placeholder="Ex: Preciso de uma landing page moderna para atrair mais clientes para o meu software..." style="resize:vertical;border-radius:var(--st-r-xl)"></textarea>
+            </div>
+            <button type="submit" class="st-cta st-cta--lg">Solicitar Proposta Sem Compromisso →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════ PROJECT DETAIL MODAL (STORIELLE CASE STUDY VIEWER) ═══════ -->
+<div class="pf-modal" id="projectModal" aria-hidden="true">
+  <div class="pf-modal__backdrop" onclick="closeProject()"></div>
+  <div class="pf-modal__panel">
+    <div class="pf-modal__bar">
+      <div class="pf-modal__bar-meta">
+        <div class="pf-modal__bar-meta-top">
+          <span class="st-eyebrow" id="pmCount" style="color:var(--st-accent)"></span>
+          <span class="pf-project__tag-badge" id="pmCategory" style="position:static"></span>
+        </div>
+        <h3 id="pmTitle"></h3>
+      </div>
+      <div class="pf-modal__bar-nav">
+        <button class="st-btn st-btn--pill st-btn--outline" type="button" onclick="stepProject(-1)" title="Projeto anterior (←)">← Anterior</button>
+        <button class="st-btn st-btn--pill st-btn--outline" type="button" onclick="stepProject(1)" title="Próximo projeto (→)">Próximo →</button>
+        <button class="st-icon-btn" type="button" aria-label="Fechar" onclick="closeProject()" style="width:2.5rem;height:2.5rem;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);color:#fff;font-size:1.1rem;margin-left:0.5rem">✕</button>
+      </div>
+    </div>
+    <div class="pf-modal__body" id="pmBody">
+      <div class="pf-modal__gallery" id="pmGallery"></div>
+      <div class="pf-modal__bottom-cta">
+        <span class="st-eyebrow" style="color:var(--st-accent)">Vamos Criar o Seu?</span>
+        <h3 class="st-h3" style="color:#fff;margin:0">Sua empresa merece uma presença digital desse nível.</h3>
+        <p class="st-lead" style="max-width:34rem;margin:0;font-size:1rem;color:var(--st-text-soft)">Interfaces pensadas para encantar clientes, transmitir autoridade e aumentar seus resultados.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem">
+          <a href="#contact" class="st-cta st-cta--magnetic" onclick="closeProject()">Pedir Orçamento Gratuito →</a>
+          <button type="button" class="st-btn st-btn--pill st-btn--outline" onclick="closeProject()">Ver Mais Projetos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="st-container">
+  <div class="pf-footer">
+    <div>
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+        <img src="guilherme-logo.png" alt="GSC Tech - Guilherme Sanz" style="height:28px;width:auto;display:block">
+      </div>
+      <p class="st-caption" style="margin-top:.25rem">© 2026 Guilherme Sanz (GSC Tech) · Todos os direitos reservados.</p>
+    </div>
+    <div class="pf-footer__socials">
+      <a href="#" class="st-icon-btn" aria-label="Instagram" title="Instagram">IG</a>
+      <a href="#" class="st-icon-btn" aria-label="LinkedIn" title="LinkedIn">in</a>
+      <a href="#" class="st-icon-btn" aria-label="Dribbble" title="Dribbble">Dr</a>
+    </div>
+    <div>
+      <a href="#hero" class="st-btn st-btn--pill st-btn--dark" style="font-size:.75rem">↑ Voltar ao topo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="projects_data.js"></script>
+<script>
+// ── Navbar scroll effect ──
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── Project filter ──
+function filterProjects(cat, btn){
+  const cards = document.querySelectorAll('.pf-project');
+  const btns = document.querySelectorAll('#filterTabs button');
+  btns.forEach(b => b.setAttribute('aria-selected','false'));
+  btn.setAttribute('aria-selected','true');
+  cards.forEach(c => {
+    if(cat === 'all' || c.dataset.cat.includes(cat)){
+      c.style.display = '';
+      c.style.opacity = '0';
+      c.style.transform = 'translateY(20px)';
+      requestAnimationFrame(()=>{
+        c.style.transition = 'opacity .4s, transform .4s var(--st-ease-out)';
+        c.style.opacity = '1';
+        c.style.transform = 'none';
+      });
+    } else {
+      c.style.display = 'none';
+    }
+  });
+}
+
+// ── Tab selection (contact form) ──
+function selectTab(btn){
+  const tabs = btn.parentElement.querySelectorAll('button');
+  tabs.forEach(t => t.setAttribute('aria-selected','false'));
+  btn.setAttribute('aria-selected','true');
+}
+
+// ── Scroll animations (Intersection Observer) ──
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.style.animationPlayState = 'running';
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.1, rootMargin:'0px 0px -50px 0px'});
+
+document.querySelectorAll('.st-fade-up').forEach(el=>{
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+
+// ── Close mobile nav on link click ──
+document.querySelectorAll('.pf-nav__links .st-navlink').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ── STORYTELLING ENGINE & CHAPTER TRACKER ──
+const storyProgress = document.getElementById('storyProgress');
+const storyDots = document.querySelectorAll('.pf-story-dot');
+const chapters = ['hero','services','projects','about','testimonials','faq','contact'];
+
+function updateStoryProgress(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  if(storyProgress) storyProgress.style.width = Math.min(100, Math.max(0, progress)) + '%';
+
+  // Find active chapter
+  let currentSection = 'hero';
+  chapters.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){
+      const rect = el.getBoundingClientRect();
+      if(rect.top <= window.innerHeight * 0.45){
+        currentSection = id;
+      }
+    }
+  });
+
+  storyDots.forEach(dot=>{
+    dot.classList.toggle('is-active', dot.dataset.target === currentSection);
+  });
+}
+
+window.addEventListener('scroll', updateStoryProgress, { passive: true });
+updateStoryProgress();
+
+// Click dot to scroll to story chapter
+storyDots.forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    const target = document.getElementById(dot.dataset.target);
+    if(target){
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// ── CUSTOM GLOW MOUSE FOLLOWER (AMBER HALO) ──
+const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+
+let mouseX = -100, mouseY = -100;
+let ringX = -100, ringY = -100;
+let cursorVisible = false;
+
+window.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  if (!cursorVisible) {
+    cursorVisible = true;
+    cursorDot.style.opacity = '1';
+    cursorRing.style.opacity = '1';
+    ringX = mouseX;
+    ringY = mouseY;
+  }
+
+  // Centered dot follows immediately
+  cursorDot.style.left = mouseX + 'px';
+  cursorDot.style.top = mouseY + 'px';
+}, { passive: true });
+
+// Lerp animation loop for smooth trailing ring
+function animateCursor() {
+  if (cursorVisible) {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+  }
+  requestAnimationFrame(animateCursor);
+}
+requestAnimationFrame(animateCursor);
+
+// Hover interaction on clickable elements
+const hoverTargets = 'a, button, input, textarea, select, .st-option, .st-switch, .pf-project, .st-frame, .st-cta, .pf-story-dot, details summary, .st-provider';
+document.addEventListener('mouseover', (e) => {
+  if (e.target.closest(hoverTargets)) {
+    cursorRing.classList.add('is-hover');
+  }
+});
+document.addEventListener('mouseout', (e) => {
+  if (e.target.closest(hoverTargets)) {
+    cursorRing.classList.remove('is-hover');
+  }
+});
+
+// Click interaction
+window.addEventListener('mousedown', () => cursorRing.classList.add('is-click'));
+window.addEventListener('mouseup', () => cursorRing.classList.remove('is-click'));
+
+// Hide cursor when leaving browser window
+document.addEventListener('mouseleave', () => {
+  cursorVisible = false;
+  cursorDot.style.opacity = '0';
+  cursorRing.style.opacity = '0';
+});
+
+// ── SERVICE & STAT CARDS: spotlight que segue o mouse ──
+document.querySelectorAll('.pf-service, .pf-stat').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+
+// ── RENDER PROJECTS GRID & CASE STUDY VIEWER ──
+function renderProjectsGrid(){
+  const grid = document.getElementById('projectsGrid');
+  if(!grid || typeof PORTFOLIO_PROJECTS === 'undefined') return;
+
+  grid.innerHTML = PORTFOLIO_PROJECTS.map((p, idx) => `
+    <article class="pf-project st-fade-up" data-id="${p.id}" onclick="openProject(${idx})" tabindex="0" role="button" aria-label="Abrir projeto ${p.title}">
+      <div class="pf-project__thumb">
+        <img src="${p.cover}" alt="${p.title}" loading="lazy">
+        <span class="pf-project__tag-badge">${p.category}</span>
+        <span class="pf-project__screens-badge">✦ ${p.imageCount} telas</span>
+      </div>
+      <div class="pf-project__info">
+        <span class="st-eyebrow">Projeto ${String(idx + 1).padStart(2,'0')} / ${PORTFOLIO_PROJECTS.length}</span>
+        <h3 class="st-h3">${p.title}</h3>
+        <div class="pf-project__footer">
+          <span class="st-small" style="color:var(--st-text-soft)">Clique para abrir a galeria</span>
+          <span class="pf-project__cta-link">Ver Telas ↗</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // Observe newly created cards for fade-up animation
+  if (typeof observer !== 'undefined') {
+    grid.querySelectorAll('.st-fade-up').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  }
+}
+
+// ── PROJECT DETAIL MODAL (GALLERY OF REAL PROJECT IMAGES) ──
+let currentProject = 0;
+function openProject(i){
+  if(typeof PORTFOLIO_PROJECTS === 'undefined' || !PORTFOLIO_PROJECTS.length) return;
+  currentProject = (i + PORTFOLIO_PROJECTS.length) % PORTFOLIO_PROJECTS.length;
+  const p = PORTFOLIO_PROJECTS[currentProject];
+
+  document.getElementById('pmTitle').textContent = p.title;
+  document.getElementById('pmCount').textContent = 'PROJETO ' + String(currentProject + 1).padStart(2,'0') + ' / ' + PORTFOLIO_PROJECTS.length;
+  document.getElementById('pmCategory').textContent = p.category;
+
+  const gallery = document.getElementById('pmGallery');
+  // p.images already has the last image excluded strictly per user instructions
+  gallery.innerHTML = p.images.map((imgUrl, imgIdx) => `
+    <div class="pf-modal__img-card">
+      <img src="${imgUrl}" alt="${p.title} - Tela ${imgIdx + 1}" loading="lazy">
+    </div>
+  `).join('');
+
+  const body = document.getElementById('pmBody');
+  if(body) body.scrollTop = 0;
+
+  const m = document.getElementById('projectModal');
+  m.classList.add('open');
+  m.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+}
+
+function closeProject(){
+  const m = document.getElementById('projectModal');
+  m.classList.remove('open');
+  m.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+}
+
+function stepProject(d){
+  openProject(currentProject + d);
+}
+
+document.addEventListener('keydown', e => {
+  if(!document.getElementById('projectModal').classList.contains('open')) return;
+  if(e.key === 'Escape') closeProject();
+  if(e.key === 'ArrowRight') stepProject(1);
+  if(e.key === 'ArrowLeft') stepProject(-1);
+});
+
+// Initialize projects grid
+renderProjectsGrid();
+</script>
+</body>
+</html>

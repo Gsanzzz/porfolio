@@ -1,0 +1,16 @@
+{
+  "name": "@storielle/design-system",
+  "version": "1.0.1",
+  "description": "Storielle Design System — tokens, componentes CSS e preset Tailwind (dark-first).",
+  "style": "dist/storielle.css",
+  "main": "dist/storielle.css",
+  "exports": {
+    ".": "./dist/storielle.css",
+    "./css": "./dist/storielle.css",
+    "./tokens.json": "./tokens.json",
+    "./tailwind": "./tailwind.preset.js"
+  },
+  "files": ["dist", "docs/index.html", "tokens.json", "tailwind.preset.js", "README.md"],
+  "keywords": ["design-system", "css", "tailwind", "storielle", "dark"],
+  "license": "MIT"
+}
