@@ -21,13 +21,13 @@ img{display:block;max-width:100%;height:auto}
 .st-cta, .st-frame, .st-frame a, .st-frame button{text-decoration:none !important}
 .st-cta span{text-decoration:none !important}
 
-/* ───────── CUSTOM MOUSE FOLLOWER (GLOW RING & DOT) ───────── */
+/* ───────── CUSTOM MOUSE FOLLOWER (MINIMAL & ELEGANT) ───────── */
 .pf-cursor-dot,
 .pf-cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);opacity:0;will-change:left,top,transform,width,height,opacity}
-.pf-cursor-dot{width:6px;height:6px;background:var(--st-brand-300);box-shadow:0 0 10px var(--st-brand-300),0 0 16px rgba(252,211,77,.8);transition:opacity .25s ease}
-.pf-cursor-ring{width:36px;height:36px;border:2px solid var(--st-brand-300);background:radial-gradient(circle,rgba(251,146,60,.35) 0%,rgba(252,211,77,.1) 50%,transparent 75%);box-shadow:0 0 16px rgba(252,211,77,.5),inset 0 0 10px rgba(252,211,77,.25);transition:width .28s var(--st-ease-spring),height .28s var(--st-ease-spring),border-color .25s ease,box-shadow .25s ease,background .25s ease,opacity .25s ease}
-.pf-cursor-ring.is-hover{width:56px;height:56px;border-color:#ffffff;background:radial-gradient(circle,rgba(255,255,255,.18) 0%,rgba(252,211,77,.18) 60%,transparent 85%);box-shadow:0 0 24px rgba(255,255,255,.7),inset 0 0 14px rgba(252,211,77,.4)}
-.pf-cursor-ring.is-click{transform:translate(-50%,-50%) scale(.82)}
+.pf-cursor-dot{width:4px;height:4px;background:#ffffff;box-shadow:0 0 6px rgba(255,255,255,.6);transition:opacity .25s ease}
+.pf-cursor-ring{width:28px;height:28px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.03);transition:width .25s var(--st-ease-spring),height .25s var(--st-ease-spring),border-color .25s ease,background .25s ease,opacity .25s ease}
+.pf-cursor-ring.is-hover{width:44px;height:44px;border-color:rgba(252,211,77,.7);background:rgba(252,211,77,.06);box-shadow:0 0 16px rgba(252,211,77,.25)}
+.pf-cursor-ring.is-click{transform:translate(-50%,-50%) scale(.8)}
 @media(hover:none) and (pointer:coarse){.pf-cursor-dot,.pf-cursor-ring{display:none !important}}
 
 /* NAV */
