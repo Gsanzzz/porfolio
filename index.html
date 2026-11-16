@@ -223,19 +223,26 @@ body.modal-open{overflow:hidden}
 .pf-footer{padding:3rem 0;border-top:1px solid var(--st-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .pf-footer__socials{display:flex;gap:.75rem}
 
+/* METRICS STRIP */
+.pf-hero__metrics{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;max-width:54rem}
+.pf-hero__metric{display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.pf-hero__metric strong{font:700 1.25rem/1 var(--st-font-display);color:#fff}
+.pf-hero__metric span{font:500 .75rem var(--st-font-ui);color:var(--st-text-dim);letter-spacing:.04em;text-transform:uppercase}
+.pf-hero__metric-sep{width:1px;height:1.75rem;background:rgba(255,255,255,.12)}
+
 /* RESPONSIVE */
 @media(max-width:1080px){
   .pf-story-tracker{display:none}
 }
 
 @media(max-width:960px){
-  .pf-hero{padding:6.5rem 0 3.5rem}
+  .pf-hero{padding:6rem 0 3.5rem}
   .pf-studio__grid{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem}
   .pf-portal{order:-1}
   .pf-portal__orbit-inner{width:260px;height:310px}
   .pf-figma-cursor{top:4%;right:-.5rem}
   .pf-nav__links{display:none}
-  .pf-nav__links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(5,5,5,.95);backdrop-filter:blur(16px);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--st-border)}
+  .pf-nav__links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(5,5,5,.97);backdrop-filter:blur(20px);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--st-border);box-shadow:0 20px 40px rgba(0,0,0,.8)}
   .pf-nav__mobile{display:inline-flex}
   .pf-stats{grid-template-columns:repeat(2,1fr)}
   .pf-services{grid-template-columns:repeat(2,1fr)}
@@ -244,17 +251,61 @@ body.modal-open{overflow:hidden}
   .pf-contact__row{grid-template-columns:1fr}
   .pf-projects{grid-template-columns:1fr}
   .pf-footer{flex-direction:column;text-align:center}
+  
+  /* Modal responsiveness for tablets */
+  .pf-modal{padding:0.75rem}
+  .pf-modal__panel{height:96vh;max-height:96vh;border-radius:var(--st-r-xl)}
+  .pf-modal__bar{padding:1rem 1.25rem}
+  .pf-modal__body{padding:1.5rem 1rem 3rem}
 }
 
 @media(max-width:540px){
-  .pf-hero__actions{flex-direction:column;width:100%}
-  .st-frame{width:100%}
+  .pf-nav__inner{padding:0 1rem}
+  .pf-nav .st-cta{display:none} /* Oculta CTA redundante da navbar no mobile pequeno para dar espaço limpo à logo e ao menu hambúrguer */
+  .pf-hero{padding:5.5rem 0 2.5rem}
+  .pf-hero__title{font-size:clamp(1.85rem,7.5vw,2.5rem);line-height:1.15;word-break:break-word}
+  .pf-hero__badge{max-width:100%;font-size:.6875rem;padding:.35rem .75rem;text-align:center}
+  .pf-hero__actions{flex-direction:column;width:100%;gap:.875rem}
+  .st-frame{width:100%;padding:0}
   .st-frame button{width:100%}
   .pf-hero-secondary{width:100%;justify-content:center}
-  .pf-portal__orbit-inner{width:220px;height:260px}
-  .pf-stats{grid-template-columns:1fr}
-  .pf-services{grid-template-columns:1fr}
+  
+  .st-window__bar span{display:none} /* Oculta caminho longo no topo da janela do studio no celular */
+  .pf-studio__grid{padding:1rem}
+  .pf-bento{padding:1.25rem}
+  .pf-portal__orbit-inner{width:200px;height:240px}
+  .pf-portal__glow{width:220px;height:220px}
+  
+  .pf-hero__metrics{gap:1.25rem;display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .pf-hero__metric-sep{display:none}
+  
+  .pf-section{padding:4rem 0}
+  .pf-section__header{margin-bottom:2.5rem}
+  .pf-stats{grid-template-columns:1fr;gap:1rem;margin-top:2.5rem}
+  .pf-stat{padding:1.5rem 1.25rem}
+  .pf-services{grid-template-columns:1fr;gap:1rem}
   .pf-services > .pf-service:nth-child(5){grid-column:auto}
+  
+  .pf-projects{grid-template-columns:1fr;gap:1.5rem}
+  .pf-project__info{padding:1.25rem}
+  
+  /* Modal responsiveness for mobile */
+  .pf-modal{padding:0}
+  .pf-modal__panel{height:100vh;max-height:100vh;border-radius:0;border-left:none;border-right:none}
+  .pf-modal__bar{padding:.875rem 1rem;flex-wrap:wrap;gap:.75rem}
+  .pf-modal__bar-meta h3{font-size:1.15rem}
+  .pf-modal__bar-nav .st-btn{padding:.4rem .65rem;font-size:11px}
+  .pf-modal__body{padding:1.25rem .75rem 2.5rem}
+  .pf-modal__gallery{gap:1rem}
+  .pf-modal__bottom-cta{padding:2rem 1.25rem;margin-top:2rem}
+  
+  /* Story bridge */
+  .pf-story-bridge{padding:2.5rem 1rem}
+  .pf-story-bridge blockquote{font-size:1.15rem}
+  
+  /* Contact */
+  .st-card, .st-ring-card{padding:1.25rem}
+  .pf-contact .st-modal__body{padding:1.5rem 1rem}
 }
 </style>
 </head>
