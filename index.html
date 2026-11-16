@@ -568,42 +568,42 @@ body.modal-open{overflow:hidden}
         <div class="st-plan__head"><span class="st-plan__icon">✦</span><h3 class="st-h4">UX &amp; UI Design</h3></div>
         <p class="st-small">Telas intuitivas e elegantes que facilitam a vida do seu cliente e aumentam o faturamento.</p>
         <ul><li>Protótipo navegável no Figma</li><li>Design System completo</li><li>Foco em conversão</li></ul>
-        <a href="#contact" class="st-link">Quero esse serviço →</a>
+        <a href="#contact" class="st-link" onclick="selectTabByName('UX/UI Design')">Quero esse serviço →</a>
       </article>
       <article class="st-glass st-plan pf-service st-fade-up st-delay-1">
         <span class="pf-service__spot"></span>
         <div class="st-plan__head"><span class="st-plan__icon">⟨/⟩</span><h3 class="st-h4">Sites &amp; Landing Pages</h3></div>
         <p class="st-small">Páginas rápidas e persuasivas, feitas para transformar visitantes em clientes.</p>
         <ul><li>Carregamento ultra rápido</li><li>Perfeito no celular</li><li>Pronto para anúncios e SEO</li></ul>
-        <a href="#contact" class="st-link">Quero esse serviço →</a>
+        <a href="#contact" class="st-link" onclick="selectTabByName('Site ou Landing Page')">Quero esse serviço →</a>
       </article>
       <article class="st-glass st-plan pf-service st-fade-up st-delay-2">
         <span class="pf-service__spot"></span>
         <div class="st-plan__head"><span class="st-plan__icon">▣</span><h3 class="st-h4">Apps &amp; Sistemas</h3></div>
         <p class="st-small">Dashboards, plataformas SaaS e aplicativos fáceis de usar no dia a dia da sua equipe.</p>
         <ul><li>Painéis administrativos</li><li>Apps iOS e Android</li><li>Pronto para crescer</li></ul>
-        <a href="#contact" class="st-link">Quero esse serviço →</a>
+        <a href="#contact" class="st-link" onclick="selectTabByName('Aplicativo / Sistema')">Quero esse serviço →</a>
       </article>
       <article class="st-glass st-plan pf-service st-fade-up st-delay-3">
         <span class="pf-service__spot"></span>
         <div class="st-plan__head"><span class="st-plan__icon">▶</span><h3 class="st-h4">Vídeo &amp; Motion</h3></div>
         <p class="st-small">Edições e animações que prendem a atenção nas redes sociais e nos anúncios.</p>
         <ul><li>Reels e anúncios</li><li>Vídeos institucionais</li><li>Animações de marca</li></ul>
-        <a href="#contact" class="st-link">Quero esse serviço →</a>
+        <a href="#contact" class="st-link" onclick="selectTabByName('UX/UI Design')">Quero esse serviço →</a>
       </article>
       <article class="st-glass st-plan pf-service st-fade-up">
         <span class="pf-service__spot"></span>
         <div class="st-plan__head"><span class="st-plan__icon">◆</span><h3 class="st-h4">Design Gráfico</h3></div>
         <p class="st-small">Apresentações, propostas e materiais que passam autoridade logo de cara.</p>
         <ul><li>Apresentações comerciais</li><li>Posts e banners</li><li>Materiais impressos</li></ul>
-        <a href="#contact" class="st-link">Quero esse serviço →</a>
+        <a href="#contact" class="st-link" onclick="selectTabByName('Branding / Marca')">Quero esse serviço →</a>
       </article>
       <article class="st-glass st-plan pf-service st-fade-up st-delay-1">
         <span class="pf-service__spot"></span>
         <div class="st-plan__head"><span class="st-plan__icon">★</span><h3 class="st-h4">Branding &amp; Marca</h3></div>
         <p class="st-small">Marcas fortes e modernas que transmitem confiança e se destacam da concorrência.</p>
         <ul><li>Logotipo e identidade</li><li>Manual da marca</li><li>Rebranding completo</li></ul>
-        <a href="#contact" class="st-link">Quero esse serviço →</a>
+        <a href="#contact" class="st-link" onclick="selectTabByName('Branding / Marca')">Quero esse serviço →</a>
       </article>
     </div>
 
@@ -873,20 +873,20 @@ body.modal-open{overflow:hidden}
 
       <div class="st-modal st-fade-up st-delay-1" style="width:100%;max-width:100%;margin-top:2rem">
         <div class="st-modal__body">
-          <form class="pf-contact__form" onsubmit="return false">
+          <form class="pf-contact__form" id="contactForm" onsubmit="handleContactSubmit(event)">
             <div class="pf-contact__row">
               <div class="st-field">
-                <label class="st-label">Seu Nome / Nome da Empresa</label>
-                <input class="st-input" type="text" placeholder="Ex: Roberto Silva">
+                <label class="st-label" for="contactName">Seu Nome / Nome da Empresa</label>
+                <input class="st-input" id="contactName" type="text" placeholder="Ex: Roberto Silva">
               </div>
               <div class="st-field">
-                <label class="st-label">Seu Melhor E-mail ou WhatsApp</label>
-                <input class="st-input" type="email" placeholder="contato@empresa.com">
+                <label class="st-label" for="contactInfo">Seu Melhor E-mail ou WhatsApp</label>
+                <input class="st-input" id="contactInfo" type="text" placeholder="contato@empresa.com ou (22) 99999-9999">
               </div>
             </div>
             <div class="st-field">
               <label class="st-label">Qual é a sua necessidade principal?</label>
-              <div class="st-tabs" style="margin-top:.25rem">
+              <div class="st-tabs" id="contactTabs" style="margin-top:.25rem">
                 <button type="button" aria-selected="true" onclick="selectTab(this)">UX/UI Design</button>
                 <button type="button" aria-selected="false" onclick="selectTab(this)">Site ou Landing Page</button>
                 <button type="button" aria-selected="false" onclick="selectTab(this)">Aplicativo / Sistema</button>
@@ -894,8 +894,8 @@ body.modal-open{overflow:hidden}
               </div>
             </div>
             <div class="st-field">
-              <label class="st-label">Conte um resumo do que você precisa</label>
-              <textarea class="st-input" rows="4" placeholder="Ex: Preciso de uma landing page moderna para atrair mais clientes para o meu software..." style="resize:vertical;border-radius:var(--st-r-xl)"></textarea>
+              <label class="st-label" for="contactMessage">Conte um resumo do que você precisa</label>
+              <textarea class="st-input" id="contactMessage" rows="4" placeholder="Ex: Preciso de uma landing page moderna para atrair mais clientes para o meu software..." style="resize:vertical;border-radius:var(--st-r-xl)"></textarea>
             </div>
             <button type="submit" class="st-cta st-cta--lg">Solicitar Proposta →</button>
           </form>
@@ -993,11 +993,54 @@ function filterProjects(cat, btn){
   });
 }
 
-// ── Tab selection (contact form) ──
+// ── Tab selection & WhatsApp Proposal Redirection ──
 function selectTab(btn){
   const tabs = btn.parentElement.querySelectorAll('button');
   tabs.forEach(t => t.setAttribute('aria-selected','false'));
   btn.setAttribute('aria-selected','true');
+}
+
+function selectTabByName(name){
+  const tabs = document.querySelectorAll('#contactTabs button');
+  tabs.forEach(t => {
+    if (t.textContent.trim().toLowerCase().includes(name.toLowerCase())) {
+      t.setAttribute('aria-selected', 'true');
+    } else {
+      t.setAttribute('aria-selected', 'false');
+    }
+  });
+}
+
+function handleContactSubmit(e){
+  if (e) e.preventDefault();
+  
+  const nameInput = document.getElementById('contactName');
+  const contactInput = document.getElementById('contactInfo');
+  const messageInput = document.getElementById('contactMessage');
+  
+  const name = nameInput ? nameInput.value.trim() : '';
+  const contact = contactInput ? contactInput.value.trim() : '';
+  const selectedTab = document.querySelector('#contactTabs button[aria-selected="true"]');
+  const service = selectedTab ? selectedTab.textContent.trim() : 'Design & Desenvolvimento';
+  const message = messageInput ? messageInput.value.trim() : '';
+  
+  let text = 'Olá, Guilherme! Vim pelo seu portfólio e gostaria de solicitar uma proposta.\n\n';
+  if (name) {
+    text += `*Nome / Empresa:* ${name}\n`;
+  }
+  if (contact) {
+    text += `*Contato:* ${contact}\n`;
+  }
+  text += `*Necessidade:* ${service}\n`;
+  if (message) {
+    text += `*Resumo do Projeto:* ${message}\n`;
+  }
+  
+  const zapUrl = `https://wa.me/5522996010666?text=${encodeURIComponent(text)}`;
+  const win = window.open(zapUrl, '_blank');
+  if (!win || win.closed || typeof win.closed === 'undefined') {
+    window.location.href = zapUrl;
+  }
 }
 
 // ── Scroll animations (Intersection Observer) ──
