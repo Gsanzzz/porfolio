@@ -2,7 +2,7 @@
 <html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Guilherme Sanz — Designer & Developer</title>
 <meta name="description" content="Portfolio de Guilherme Sanz — UX/UI Designer, Desenvolvedor Web & Apps, Editor de Vídeo, Design Gráfico, Branding & Rebranding.">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -11,9 +11,15 @@
 <style>
 /* ───────── PORTFOLIO OVERRIDES ───────── */
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:5rem}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;overflow-x:hidden}
+body{overflow-x:hidden;width:100%;position:relative}
 body, a, button, input, textarea, select, label{cursor:none !important}
+a{text-decoration:none !important} /* Remove qualquer linha ou sublinhado padrão nos links e botões */
 img{display:block;max-width:100%;height:auto}
+
+/* CTA text styling */
+.st-cta, .st-frame, .st-frame a, .st-frame button{text-decoration:none !important}
+.st-cta span{text-decoration:none !important}
 
 /* ───────── CUSTOM MOUSE FOLLOWER (GLOW RING & DOT) ───────── */
 .pf-cursor-dot,
@@ -111,9 +117,9 @@ img{display:block;max-width:100%;height:auto}
 .pf-portal__status{margin-top:1.25rem;z-index:3}
 
 /* GLOW ORB */
-.pf-glow{position:absolute;width:600px;height:600px;border-radius:50%;pointer-events:none;opacity:.12;filter:blur(120px)}
-.pf-glow--violet{background:var(--st-violet);top:-10%;right:-5%}
-.pf-glow--orange{background:var(--st-brand-500);bottom:-15%;left:-10%}
+.pf-glow{position:absolute;width:600px;height:600px;max-width:100vw;border-radius:50%;pointer-events:none;opacity:.12;filter:blur(120px)}
+.pf-glow--violet{background:var(--st-violet);top:-10%;right:0}
+.pf-glow--orange{background:var(--st-brand-500);bottom:-15%;left:0}
 
 /* SECTIONS */
 .pf-section{padding:6rem 0}
@@ -250,6 +256,8 @@ body.modal-open{overflow:hidden}
   .pf-about{grid-template-columns:1fr}
   .pf-contact__row{grid-template-columns:1fr}
   .pf-projects{grid-template-columns:1fr}
+  .pf-testimonials{grid-template-columns:1fr}
+  .pf-acts{grid-template-columns:1fr}
   .pf-footer{flex-direction:column;text-align:center}
   
   /* Modal responsiveness for tablets */
@@ -304,8 +312,14 @@ body.modal-open{overflow:hidden}
   .pf-story-bridge blockquote{font-size:1.15rem}
   
   /* Contact */
+  .pf-contact{max-width:100%;padding:0}
   .st-card, .st-ring-card{padding:1.25rem}
-  .pf-contact .st-modal__body{padding:1.5rem 1rem}
+  .st-modal{max-width:100% !important}
+  .pf-contact .st-modal__body{padding:1.25rem 1rem}
+  
+  /* Tabs no formulário de contato */
+  .st-tabs{grid-auto-flow:row !important;grid-template-columns:1fr 1fr !important;border-radius:var(--st-r-xl) !important;gap:.35rem !important;padding:.35rem !important}
+  .st-tabs button{padding:.5rem .6rem !important;font-size:12px !important;white-space:normal !important;text-align:center !important;line-height:1.2 !important}
 }
 </style>
 </head>
@@ -377,15 +391,13 @@ body.modal-open{overflow:hidden}
 
       <!-- HERO ACTIONS WITH ANIMATED STORIELLER FRAME -->
       <div class="pf-hero__actions">
-        <a href="#projects" class="st-frame">
-          <button class="st-cta pf-hero-cta">
-            <span>Ver Casos de Sucesso (15)</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </button>
+        <a href="#projects" class="st-cta pf-hero-cta" style="text-decoration:none !important">
+          <span style="text-decoration:none !important">Ver Casos de Sucesso (15)</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-        <a href="#contact" class="st-btn st-btn--pill st-btn--outline pf-hero-secondary">
+        <a href="#contact" class="st-btn st-btn--pill st-btn--outline pf-hero-secondary" style="text-decoration:none !important">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          <span>Fazer Orçamento Rápido</span>
+          <span style="text-decoration:none !important">Fazer Orçamento Rápido</span>
         </a>
       </div>
     </div>
